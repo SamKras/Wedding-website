@@ -89,6 +89,7 @@
             font-weight: 300;
             transition: opacity 0.3s ease;
             overflow-x: hidden;
+            cursor: default !important;
         }
 
         body.fade-out {
@@ -99,29 +100,9 @@
             overflow: hidden;
         }
 
-        /* Custom Cursor */
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--color-gold);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-ring {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--color-gold);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.2s ease-out;
-            mix-blend-mode: difference;
+        /* Кастомный курсор удален */
+        .cursor-dot, .cursor-ring {
+            display: none !important;
         }
 
         /* Typography */
@@ -576,6 +557,14 @@
             display: block;
             position: relative;
             cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .wedding-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .wedding-card::before {
@@ -595,6 +584,10 @@
         .wedding-card:hover {
             transform: translateY(-12px);
             box-shadow: 0 25px 50px rgba(168, 143, 116, 0.08);
+        }
+
+        .wedding-card.visible:hover {
+            transform: translateY(-12px);
         }
 
         .wedding-card:hover::before {
@@ -1329,9 +1322,6 @@
             .video-modal .modal-content {
                 width: 95%;
             }
-            .cursor-dot, .cursor-ring {
-                display: none;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1365,10 +1355,6 @@
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-ring" id="cursor-ring"></div>
-
     <!-- Language Selector -->
     <div class="language-selector">
         <select id="language-select">
@@ -1381,9 +1367,6 @@
             <option value="it">Italiano 🇮🇹</option>
             <option value="pt">Português 🇵🇹</option>
             <option value="ru">Русский 🇷🇺</option>
-            <option value="zh">中文 🇨🇳</option>
-            <option value="ja">日本語 🇯🇵</option>
-            <option value="ko">한국어 🇰🇷</option>
         </select>
     </div>
 
@@ -1473,7 +1456,7 @@
         
         <div class="portfolio-grid">
             <!-- Card 1: James & Allison -->
-            <div class="wedding-card" data-video-id="CxL7ODtDAz4" data-title="James & Allison" data-description="Lake Como, Italy | Cinematic Documentary | Drone Aerials">
+            <div class="wedding-card" data-video-id="CxL7ODtDAz4" data-title="James & Allison" data-description="San Francisco Bay Area | Cinematic Documentary | Drone Aerials">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/James%20and%20Allison.png?raw=true" 
                          alt="James & Allison wedding film" class="wedding-image" loading="lazy">
@@ -1486,7 +1469,7 @@
             </div>
 
             <!-- Card 2: Giavanna & Landon -->
-            <div class="wedding-card" data-video-id="rizc_ROs7vY" data-title="Giavanna & Landon" data-description="Tuscany, Italy | Golden Hour Cinematography | Emotional Storytelling">
+            <div class="wedding-card" data-video-id="rizc_ROs7vY" data-title="Giavanna & Landon" data-description="San Francisco Bay Area | Golden Hour Cinematography | Emotional Storytelling">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Giavanna%20and%20Landon.png?raw=true" 
                          alt="Giavanna & Landon wedding film" class="wedding-image" loading="lazy">
@@ -1499,7 +1482,7 @@
             </div>
 
             <!-- Card 3: Nicole and Joshua -->
-            <div class="wedding-card" data-video-id="dx7ZeAc2_l8" data-title="Nicole & Joshua" data-description="California, USA | Beach Wedding | Natural Light Cinematography">
+            <div class="wedding-card" data-video-id="dx7ZeAc2_l8" data-title="Nicole & Joshua" data-description="San Francisco Bay Area | Beach Wedding | Natural Light Cinematography">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Nicole%20and%20Joshua.png?raw=true" 
                          alt="Nicole and Joshua wedding film" class="wedding-image" loading="lazy">
@@ -1512,7 +1495,7 @@
             </div>
 
             <!-- Card 4: Maricel and Ruben -->
-            <div class="wedding-card" data-video-id="GnI_U2WhA2A" data-title="Maricel & Ruben" data-description="Bali, Indonesia | Tropical Destination | Cultural Celebration">
+            <div class="wedding-card" data-video-id="GnI_U2WhA2A" data-title="Maricel & Ruben" data-description="San Francisco Bay Area | Tropical Destination | Cultural Celebration">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Maricel%20and%20Ruben.png?raw=true" 
                          alt="Maricel and Ruben wedding film" class="wedding-image" loading="lazy">
@@ -1525,7 +1508,7 @@
             </div>
 
             <!-- Card 5: Merjen and Clark -->
-            <div class="wedding-card" data-video-id="UmbO1ysY-jI" data-title="Merjen & Clark" data-description="Scottish Highlands | Dramatic Landscape | Epic Cinematography">
+            <div class="wedding-card" data-video-id="UmbO1ysY-jI" data-title="Merjen & Clark" data-description="San Francisco Bay Area | Dramatic Landscape | Epic Cinematography">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Merjen%20and%20Сlark.png?raw=true" 
                          alt="Merjen and Clark wedding film" class="wedding-image" loading="lazy">
@@ -1538,7 +1521,7 @@
             </div>
 
             <!-- Card 6: Nuvia & Martin -->
-            <div class="wedding-card" data-video-id="ER0031j975c" data-title="Nuvia & Martin" data-description="Mexico City | Urban Elegance | Modern Documentary">
+            <div class="wedding-card" data-video-id="ER0031j975c" data-title="Nuvia & Martin" data-description="San Francisco Bay Area | Urban Elegance | Modern Documentary">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Nuvia%20and%20Martin%20film.png?raw=true" 
                          alt="Nuvia & Martin wedding film" class="wedding-image" loading="lazy">
@@ -1551,7 +1534,7 @@
             </div>
 
             <!-- Card 7: Karys and Samuel -->
-            <div class="wedding-card" data-video-id="YpCYjuYOd-4" data-title="Karys & Samuel" data-description="French Riviera | Luxury Estate | Golden Hour">
+            <div class="wedding-card" data-video-id="YpCYjuYOd-4" data-title="Karys & Samuel" data-description="San Francisco Bay Area | Luxury Estate | Golden Hour">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Karys%20and%20Samuel.png?raw=true" 
                          alt="Karys and Samuel wedding film" class="wedding-image" loading="lazy">
@@ -1564,7 +1547,7 @@
             </div>
 
             <!-- Card 8: Alejandra & Daniel -->
-            <div class="wedding-card" data-video-id="r28xtq6TRls" data-title="Alejandra & Daniel" data-description="Barcelona, Spain | Gothic Quarter | Artistic Documentary">
+            <div class="wedding-card" data-video-id="r28xtq6TRls" data-title="Alejandra & Daniel" data-description="San Francisco Bay Area | Gothic Quarter | Artistic Documentary">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Alejandra%20and%20Daniel.png?raw=true" 
                          alt="Alejandra & Daniel wedding film" class="wedding-image" loading="lazy">
@@ -1577,7 +1560,7 @@
             </div>
 
             <!-- Card 9: Shanice and Danielle -->
-            <div class="wedding-card" data-video-id="J1Q5qOC_8gg" data-title="Shanice & Danielle" data-description="New York City | Modern Love | Urban Documentary">
+            <div class="wedding-card" data-video-id="J1Q5qOC_8gg" data-title="Shanice & Danielle" data-description="San Francisco Bay Area | Modern Love | Urban Documentary">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Shanice%20and%20Danielle.png?raw=true" 
                          alt="Shanice and Danielle wedding film" class="wedding-image" loading="lazy">
@@ -1590,7 +1573,7 @@
             </div>
 
             <!-- Card 10: Dina & Shein (Новая свадьба вне LeroMovie) -->
-            <div class="wedding-card" data-video-id="j-i90sZ-PhM" data-title="Dina & Shein" data-description="Dubai, UAE | Luxury Desert Wedding | Cinematic Storytelling">
+            <div class="wedding-card" data-video-id="j-i90sZ-PhM" data-title="Dina & Shein" data-description="Los Angeles, CA | Luxury Desert Wedding | Cinematic Storytelling">
                 <div class="image-container">
                     <img src="https://github.com/SamKras/Wedding-website/blob/main/Dina%20and%20Shein.png?raw=true" 
                          alt="Dina & Shein wedding film" class="wedding-image" loading="lazy">
@@ -1713,12 +1696,6 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="phone" data-i18n="contact.form.phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" class="form-input" 
-                           placeholder="+1 (123) 456-7890">
-                </div>
-                
-                <div class="form-group">
                     <label class="form-label" for="wedding-date" data-i18n="contact.form.date">Wedding Date</label>
                     <input type="date" id="wedding-date" name="wedding-date" class="form-input">
                 </div>
@@ -1768,7 +1745,7 @@
             </nav>
             <div class="footer-line"></div>
             <p class="footer-copyright" data-i18n="footer.copyright">
-                Cinematography for LeroMovie &copy; <span id="current-year"></span>
+                &copy; <span id="current-year"></span> Sam Krasilnikov
             </p>
         </div>
     </footer>
@@ -1850,7 +1827,6 @@
                 "contact.text": "To discuss capturing your celebration with this same intentional and artistic perspective, please reach out.",
                 "contact.form.names": "Your Names *",
                 "contact.form.email": "Email Address *",
-                "contact.form.phone": "Phone Number",
                 "contact.form.date": "Wedding Date",
                 "contact.form.location": "Wedding Location",
                 "contact.form.message": "Your Message *",
@@ -1867,7 +1843,7 @@
                 "footer.philosophy": "Philosophy",
                 "footer.contact": "Contact",
                 "footer.main": "Main Portfolio",
-                "footer.copyright": "Cinematography for LeroMovie &copy; "
+                "footer.copyright": "© "
             },
             
             sr: { // Serbian
@@ -1904,7 +1880,6 @@
                 "contact.text": "Da biste razgovarali o snimanju vašeg slavlja istim namernim i umetničkim pristupom, kontaktirajte nas.",
                 "contact.form.names": "Vaša imena *",
                 "contact.form.email": "Email adresa *",
-                "contact.form.phone": "Broj telefona",
                 "contact.form.date": "Datum venčanja",
                 "contact.form.location": "Lokacija venčanja",
                 "contact.form.message": "Vaša poruka *",
@@ -1919,7 +1894,7 @@
                 "footer.philosophy": "Filozofija",
                 "footer.contact": "Kontakt",
                 "footer.main": "Glavni Portfolio",
-                "footer.copyright": "Kinematografija za LeroMovie &copy; "
+                "footer.copyright": "© "
             }
         };
 
@@ -2207,7 +2182,6 @@
                         
                         Names: ${formData.get('names')}
                         Email: ${formData.get('email')}
-                        Phone: ${formData.get('phone')}
                         Wedding Date: ${formData.get('wedding-date')}
                         Location: ${formData.get('location')}
                         Message: ${formData.get('message')}
@@ -2230,62 +2204,6 @@
                 }
             });
         }
-
-        // Custom Cursor
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorRing = document.getElementById('cursor-ring');
-        let mouseX = 0, mouseY = 0;
-        let dotX = 0, dotY = 0;
-        let ringX = 0, ringY = 0;
-
-        function updateCursor() {
-            // Update dot position (immediate)
-            dotX += (mouseX - dotX) * 0.5;
-            dotY += (mouseY - dotY) * 0.5;
-            
-            // Update ring position (delayed)
-            ringX += (mouseX - ringX) * 0.2;
-            ringY += (mouseY - ringY) * 0.2;
-            
-            // Apply positions
-            cursorDot.style.left = `${dotX}px`;
-            cursorDot.style.top = `${dotY}px`;
-            
-            cursorRing.style.left = `${ringX}px`;
-            cursorRing.style.top = `${ringY}px`;
-            
-            requestAnimationFrame(updateCursor);
-        }
-
-        // Track mouse movement
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Hide cursor on mobile
-        if (window.matchMedia("(max-width: 768px)").matches) {
-            cursorDot.style.display = 'none';
-            cursorRing.style.display = 'none';
-        } else {
-            // Start cursor animation
-            updateCursor();
-        }
-
-        // Interactive elements cursor effects
-        const interactiveElements = document.querySelectorAll('a, button, .wedding-card, .form-input, .form-textarea, .form-submit');
-        
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorRing.style.transform = 'scale(1.5)';
-                cursorRing.style.borderColor = 'var(--color-gold-dark)';
-            });
-            
-            el.addEventListener('mouseleave', () => {
-                cursorRing.style.transform = 'scale(1)';
-                cursorRing.style.borderColor = 'var(--color-gold)';
-            });
-        });
 
         // Loading animation
         window.addEventListener('load', () => {
@@ -2325,7 +2243,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Observe portfolio cards
             document.querySelectorAll('.wedding-card').forEach(el => {
-                el.classList.add('fade-in');
                 observer.observe(el);
             });
             
