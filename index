@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Cinematography Portfolio | Sam Krasilnikov for LeroMovie</title>
+    <meta name="description" content="Destination wedding films captured by Sam Krasilnikov for LeroMovie production. Authentic, cinematic love stories from around the world.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Wedding Cinematography Portfolio | Sam Krasilnikov">
+    <meta property="og:description" content="Destination wedding films captured by Sam Krasilnikov for LeroMovie production.">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Wedding Cinematography Portfolio | Sam Krasilnikov">
+    <meta name="twitter:description" content="Authentic, cinematic wedding films for LeroMovie production.">
+    
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #222222;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --accent-gold: #d4af37;
+            --accent-light: #e8d8a8;
+            --border-subtle: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .main-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(26, 26, 26, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-title strong {
+            font-weight: 600;
+            color: var(--accent-gold);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Portfolio Grid */
+        .portfolio-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .wedding-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-subtle);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .wedding-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background-color: #000;
+        }
+
+        .wedding-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .wedding-card:hover .wedding-image {
+            transform: scale(1.05);
+        }
+
+        .video-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(212, 175, 55, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-play-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            margin-left: 4px;
+        }
+
+        .wedding-card:hover .video-play-icon {
+            opacity: 1;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .wedding-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .wedding-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Philosophy Section */
+        .philosophy-section {
+            padding: 6rem 2rem;
+            background-color: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .philosophy-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .philosophy-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--accent-light);
+        }
+
+        .philosophy-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background-color: var(--bg-primary);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-email {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-gold);
+            color: var(--bg-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .contact-email:hover {
+            background-color: transparent;
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .main-footer {
+            padding: 3rem 2rem;
+            background-color: var(--bg-secondary);
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-title, .philosophy-title, .contact-title {
+                font-size: 2rem;
+            }
+            
+            .hero-section {
+                padding: 6rem 1.5rem 3rem;
+            }
+            
+            .portfolio-section, .philosophy-section, .contact-section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .image-container {
+                height: 200px;
+            }
+        }
+
+        /* Loading state for images */
+        .wedding-image.loading {
+            background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-98GWYJHHSN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-98GWYJHHSN');
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">SAM KRASILNIKOV</a>
+            <nav class="nav-links">
+                <a href="#portfolio">Portfolio</a>
+                <a href="#philosophy">Philosophy</a>
+                <a href="#contact">Contact</a>
+                <a href="index.html">Main Portfolio</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">Cinematographer for LeroMovie</div>
+            <h1 class="hero-title">
+                <strong>Wedding Stories</strong>
+                Captured with Heart
+            </h1>
+            <p class="hero-subtitle">
+                Destination wedding films that preserve the authentic emotion, beauty, and unique moments of your special day through cinematic storytelling.
+            </p>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">LeroMovie Wedding Portfolio</h2>
+            <p class="section-subtitle">
+                A collection of destination wedding films captured for LeroMovie production. 
+                Each story is unique, each celebration unforgettable.
+            </p>
+        </div>
+        
+        <div class="portfolio-grid">
+            <!-- Wedding 1 -->
+            <a href="https://youtu.be/CxL7ODtDAz4" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-1.jpg" 
+                         alt="James & Allison wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">James & Allison</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 2 -->
+            <a href="https://youtu.be/rizc_ROs7vY" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-2.jpg" 
+                         alt="Giavanna & Landon wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Giavanna & Landon</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 3 -->
+            <a href="https://youtu.be/dx7ZeAc2_l8" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-3.jpg" 
+                         alt="Nicole and Joshua wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Nicole and Joshua</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 4 -->
+            <a href="https://youtu.be/GnI_U2WhA2A" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-4.jpg" 
+                         alt="Maricel and Ruben wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Maricel and Ruben</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 5 -->
+            <a href="https://youtu.be/UmbO1ysY-jI" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-5.jpg" 
+                         alt="Merjen and Clark wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Merjen and Clark</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 6 -->
+            <a href="https://youtu.be/ER0031j975c" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-6.jpg" 
+                         alt="Nuvia & Martin wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Nuvia & Martin</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 7 -->
+            <a href="https://youtu.be/YpCYjuYOd-4" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-7.jpg" 
+                         alt="Karys and Samuel wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Karys and Samuel</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 8 -->
+            <a href="https://youtu.be/r28xtq6TRls" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-8.jpg" 
+                         alt="Alejandra & Daniel wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Alejandra & Daniel</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+
+            <!-- Wedding 9 -->
+            <a href="https://youtu.be/J1Q5qOC_8gg" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
+                    <img src="wedding-placeholder-9.jpg" 
+                         alt="Shanice and Danielle wedding film by Sam Krasilnikov for LeroMovie" 
+                         class="wedding-image loading"
+                         loading="lazy">
+                    <div class="video-play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Shanice and Danielle</h3>
+                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="philosophy-section">
+        <div class="philosophy-container">
+            <h2 class="philosophy-title">Cinematic Storytelling</h2>
+            <p class="philosophy-text">
+                "My approach to wedding cinematography is documentary at its core — observing, feeling, and preserving genuine moments as they unfold. 
+                The camera is an invisible guest, there to witness love in its most authentic form, not to stage it. 
+                Every film is a unique narrative, shaped by the couple's personality, the energy of the day, and the subtle, fleeting emotions that make each celebration one-of-a-kind."
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="contact-container">
+            <h2 class="contact-title">Capture Your Story</h2>
+            <p class="contact-text">
+                Interested in having your wedding day documented with the same cinematic approach? 
+                Get in touch to discuss your vision and how we can create something timeless together.
+            </p>
+            <a href="mailto:krasilniksem@gmail.com" class="contact-email">krasilniksem@gmail.com</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-logo">SAM KRASILNIKOV</div>
+            <nav class="footer-nav">
+                <a href="#portfolio">Portfolio</a>
+                <a href="#philosophy">Philosophy</a>
+                <a href="#contact">Contact</a>
+                <a href="index.html">Main Portfolio</a>
+            </nav>
+            <p class="footer-copyright">
+                &copy; 2024 Sam Krasilnikov. Wedding cinematography for LeroMovie.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple image lazy loading enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.wedding-image');
+            
+            // Remove loading class when images load
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.remove('loading');
+                } else {
+                    img.addEventListener('load', function() {
+                        this.classList.remove('loading');
+                    });
+                }
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.main-header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = targetPosition - headerHeight;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
