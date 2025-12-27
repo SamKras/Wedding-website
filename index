@@ -437,6 +437,32 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+
+        /* Placeholder for missing images */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-card) 0%, #2a2a2a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .image-placeholder svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+            fill: var(--accent-gold);
+            opacity: 0.5;
+        }
+
+        .image-placeholder span {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
     </style>
     
     <!-- Google Analytics -->
@@ -487,13 +513,12 @@
         </div>
         
         <div class="portfolio-grid">
-            <!-- Wedding 1 -->
+            <!-- Wedding 1: James & Allison -->
             <a href="https://youtu.be/CxL7ODtDAz4" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-1.jpg" 
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/James%20and%20Allison.png?raw=true" 
                          alt="James & Allison wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
+                         class="wedding-image"
                          loading="lazy">
                     <div class="video-play-icon">
                         <svg viewBox="0 0 24 24">
@@ -507,13 +532,12 @@
                 </div>
             </a>
 
-            <!-- Wedding 2 -->
+            <!-- Wedding 2: Giavanna & Landon -->
             <a href="https://youtu.be/rizc_ROs7vY" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-2.jpg" 
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/Giavanna%20and%20Landon.png?raw=true" 
                          alt="Giavanna & Landon wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
+                         class="wedding-image"
                          loading="lazy">
                     <div class="video-play-icon">
                         <svg viewBox="0 0 24 24">
@@ -527,13 +551,12 @@
                 </div>
             </a>
 
-            <!-- Wedding 3 -->
+            <!-- Wedding 3: Nicole and Joshua -->
             <a href="https://youtu.be/dx7ZeAc2_l8" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-3.jpg" 
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/Nicole%20and%20Joshua.png?raw=true" 
                          alt="Nicole and Joshua wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
+                         class="wedding-image"
                          loading="lazy">
                     <div class="video-play-icon">
                         <svg viewBox="0 0 24 24">
@@ -547,13 +570,12 @@
                 </div>
             </a>
 
-            <!-- Wedding 4 -->
+            <!-- Wedding 4: Maricel and Ruben -->
             <a href="https://youtu.be/GnI_U2WhA2A" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-4.jpg" 
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/Maricel%20and%20Ruben.png?raw=true" 
                          alt="Maricel and Ruben wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
+                         class="wedding-image"
                          loading="lazy">
                     <div class="video-play-icon">
                         <svg viewBox="0 0 24 24">
@@ -567,18 +589,14 @@
                 </div>
             </a>
 
-            <!-- Wedding 5 -->
+            <!-- Wedding 5: Merjen and Clark -->
             <a href="https://youtu.be/UmbO1ysY-jI" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-5.jpg" 
-                         alt="Merjen and Clark wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
-                         loading="lazy">
-                    <div class="video-play-icon">
+                    <div class="image-placeholder">
                         <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
+                        <span>Coming Soon</span>
                     </div>
                 </div>
                 <div class="card-content">
@@ -587,13 +605,12 @@
                 </div>
             </a>
 
-            <!-- Wedding 6 -->
+            <!-- Wedding 6: Nuvia & Martin -->
             <a href="https://youtu.be/ER0031j975c" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-6.jpg" 
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/Nuvia%20and%20Martin%20film.png?raw=true" 
                          alt="Nuvia & Martin wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
+                         class="wedding-image"
                          loading="lazy">
                     <div class="video-play-icon">
                         <svg viewBox="0 0 24 24">
@@ -607,13 +624,12 @@
                 </div>
             </a>
 
-            <!-- Wedding 7 -->
+            <!-- Wedding 7: Karys and Samuel -->
             <a href="https://youtu.be/YpCYjuYOd-4" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-7.jpg" 
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/Karys%20and%20Samuel.png?raw=true" 
                          alt="Karys and Samuel wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
+                         class="wedding-image"
                          loading="lazy">
                     <div class="video-play-icon">
                         <svg viewBox="0 0 24 24">
@@ -627,13 +643,12 @@
                 </div>
             </a>
 
-            <!-- Wedding 8 -->
+            <!-- Wedding 8: Alejandra & Daniel -->
             <a href="https://youtu.be/r28xtq6TRls" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-8.jpg" 
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/Alejandra%20and%20Daniel.png?raw=true" 
                          alt="Alejandra & Daniel wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
+                         class="wedding-image"
                          loading="lazy">
                     <div class="video-play-icon">
                         <svg viewBox="0 0 24 24">
@@ -647,18 +662,14 @@
                 </div>
             </a>
 
-            <!-- Wedding 9 -->
+            <!-- Wedding 9: Shanice and Danielle -->
             <a href="https://youtu.be/J1Q5qOC_8gg" class="wedding-card" target="_blank" rel="noopener noreferrer">
                 <div class="image-container">
-                    <!-- ЗАМЕНИТЕ ЭТУ ССЫЛКУ НА ВАШЕ ИЗОБРАЖЕНИЕ -->
-                    <img src="wedding-placeholder-9.jpg" 
-                         alt="Shanice and Danielle wedding film by Sam Krasilnikov for LeroMovie" 
-                         class="wedding-image loading"
-                         loading="lazy">
-                    <div class="video-play-icon">
+                    <div class="image-placeholder">
                         <svg viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
+                        <span>Coming Soon</span>
                     </div>
                 </div>
                 <div class="card-content">
