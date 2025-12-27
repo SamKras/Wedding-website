@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Wedding Films | Sam Krasilnikov for LeroMovie</title>
-    <meta name="description" content="Timeless, cinematic wedding films captured with a documentary heart. Preserving the most authentic emotions of your celebration.">
+    <title>Luxury Wedding Films | Sam Krasilnikov</title>
+    <meta name="description" content="Timeless, cinematic wedding films captured with a documentary heart.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,300&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+    
     <style>
         :root {
             --color-cream: #f9f5f0;
@@ -35,6 +44,11 @@
             color: var(--color-text);
             line-height: 1.8;
             font-weight: 300;
+            transition: opacity 0.3s ease;
+        }
+
+        body.fade-out {
+            opacity: 0.7;
         }
 
         /* Typography */
@@ -43,16 +57,68 @@
             font-weight: 400;
         }
 
+        /* Language Selector */
+        .language-selector {
+            position: fixed;
+            top: 1.25rem;
+            right: 3rem;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .language-selector select {
+            background: rgba(255, 255, 248, 0.9);
+            border: 1px solid rgba(197, 164, 126, 0.3);
+            border-radius: 4px;
+            padding: 0.4rem 0.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--color-gold-dark);
+            cursor: pointer;
+            outline: none;
+            min-width: 140px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a8845b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            padding-right: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .language-selector select:hover {
+            border-color: var(--color-gold);
+            box-shadow: 0 2px 8px rgba(197, 164, 126, 0.1);
+        }
+
+        .language-selector select:focus {
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 2px rgba(197, 164, 126, 0.2);
+        }
+
+        .language-selector::before {
+            content: "🌐";
+            font-size: 1rem;
+        }
+
         /* Header */
         .main-header {
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(249, 245, 240, 0.92);
-            backdrop-filter: blur(8px);
+            background-color: rgba(249, 245, 240, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(232, 223, 216, 0.5);
             z-index: 1000;
             padding: 1.25rem 0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .main-header.scrolled {
+            padding: 0.8rem 0;
+            background-color: rgba(249, 245, 240, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
         .nav-container {
@@ -69,6 +135,11 @@
             letter-spacing: 3px;
             color: var(--color-gold-dark);
             text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.8;
         }
 
         .nav-links {
@@ -104,35 +175,157 @@
             width: 100%;
         }
 
-        /* Hero */
+        /* CTA кнопка в навигации */
+        .nav-cta {
+            display: inline-block;
+            padding: 0.7rem 2rem;
+            background-color: transparent;
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold-dark);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--color-gold);
+            color: var(--color-ivory);
+            transform: translateY(-1px);
+        }
+
+        /* Мобильное меню */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-gold-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: var(--color-cream);
+            z-index: 1003;
+            padding: 2rem;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-close {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--color-gold-dark);
+            cursor: pointer;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: var(--color-taupe);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(232, 223, 216, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--color-gold-dark);
+        }
+
+        .mobile-nav-cta {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background-color: var(--color-gold);
+            color: var(--color-ivory);
+            text-decoration: none;
+            text-align: center;
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mobile-nav-cta:hover {
+            background-color: var(--color-gold-dark);
+        }
+
+        /* Hero Section with Video */
         .hero-section {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 10rem 2rem 6rem;
-            background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-beige) 100%);
-            position: relative;
+            justify-content: center;
+            padding: 0 2rem;
             overflow: hidden;
+            background-color: var(--color-charcoal);
         }
 
-        .hero-section::before {
-            content: '';
+        .hero-background-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23c5a47e' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
             z-index: 1;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: brightness(0.8);
         }
 
         .hero-content {
-            max-width: 850px;
-            margin: 0 auto;
+            max-width: 900px;
             text-align: center;
             position: relative;
-            z-index: 2;
+            z-index: 3;
+            padding: 4rem 3rem;
+            background: rgba(249, 245, 240, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            border: 1px solid rgba(197, 164, 126, 0.2);
+            margin-top: 4rem;
         }
 
         .hero-badge {
@@ -179,6 +372,68 @@
             height: 1px;
             background-color: var(--color-gold);
             margin: 3rem auto;
+        }
+
+        /* Новая кнопка CTA в hero */
+        .hero-cta {
+            display: inline-block;
+            margin-top: 2.5rem;
+            padding: 1.2rem 2.8rem;
+            background-color: var(--color-gold);
+            color: var(--color-ivory);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            border: none;
+            border-radius: 0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: var(--color-gold-dark);
+            transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: -1;
+        }
+
+        .hero-cta:hover {
+            color: var(--color-ivory);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 84, 91, 0.2);
+        }
+
+        .hero-cta:hover::before {
+            width: 100%;
+        }
+
+        /* Индикатор прокрутки */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            animation: fadeInUp 1s ease-out 2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
         }
 
         /* Portfolio Grid */
@@ -325,6 +580,120 @@
             color: var(--color-gold-dark);
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        /* Стиль для свадьбы вне LeroMovie */
+        .wedding-subtitle.personal-project {
+            color: var(--color-text-light);
+            font-style: italic;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 8rem 2rem;
+            background-color: var(--color-cream);
+            position: relative;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 5rem auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .image-frame {
+            position: relative;
+            padding: 1.5rem;
+            background: var(--color-ivory);
+            border: 1px solid rgba(197, 164, 126, 0.3);
+        }
+
+        .about-portrait {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(20%);
+            transition: filter 0.5s ease;
+        }
+
+        .image-frame:hover .about-portrait {
+            filter: grayscale(0%);
+        }
+
+        .frame-decoration {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(197, 164, 126, 0.2);
+            pointer-events: none;
+        }
+
+        .about-content {
+            padding-top: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.8rem;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--color-text);
+        }
+
+        .about-text strong {
+            color: var(--color-gold-dark);
+            font-weight: 500;
+        }
+
+        .about-features {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: var(--color-ivory);
+            border-left: 3px solid var(--color-gold);
+        }
+
+        .about-features h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-gold-dark);
+        }
+
+        .about-features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .about-features li {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: var(--color-text);
+        }
+
+        .about-features li span {
+            color: var(--color-gold);
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .about-cta {
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .about-cta .contact-email {
+            display: inline-block;
         }
 
         /* Philosophy */
@@ -508,10 +877,25 @@
             letter-spacing: 1px;
         }
 
+        /* Анимация появления */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Responsive */
         @media (max-width: 1100px) {
             .portfolio-grid {
                 grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            }
+            .about-container {
+                gap: 3rem;
             }
         }
 
@@ -535,6 +919,17 @@
                 padding-left: 2rem;
                 padding-right: 2rem;
             }
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .about-image {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .about-features ul {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -544,8 +939,11 @@
             .hero-subtitle {
                 font-size: 1.1rem;
             }
-            .nav-links {
+            .nav-links, .nav-cta {
                 display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
             }
             .portfolio-grid {
                 grid-template-columns: 1fr;
@@ -555,9 +953,22 @@
                 font-size: 2rem;
             }
             .hero-section {
-                padding: 8rem 1.5rem 4rem;
+                padding: 0 1.5rem;
             }
-            .portfolio-section, .philosophy-section, .contact-section {
+            .hero-content {
+                padding: 2.5rem 1.5rem;
+                margin: 1rem;
+                margin-top: 5rem;
+                backdrop-filter: blur(5px);
+            }
+            .hero-background-video {
+                opacity: 0.3;
+            }
+            .hero-cta {
+                padding: 1rem 2.2rem;
+                font-size: 0.95rem;
+            }
+            .portfolio-section, .about-section, .philosophy-section, .contact-section {
                 padding: 5rem 1.5rem;
             }
             .philosophy-text {
@@ -566,6 +977,12 @@
             }
             .image-container {
                 height: 240px;
+            }
+            .language-selector {
+                right: 1.5rem;
+            }
+            .about-text p {
+                font-size: 1.1rem;
             }
         }
 
@@ -586,50 +1003,121 @@
             .footer-nav {
                 gap: 1.5rem;
             }
+            .language-selector select {
+                min-width: 120px;
+            }
+            .about-features ul {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,300&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
-    
 </head>
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <select id="language-select">
+            <option value="en">English 🇬🇧</option>
+            <option value="sr">Српски 🇷🇸</option>
+            <option value="ar">العربية 🇦🇪</option>
+            <option value="de">Deutsch 🇩🇪</option>
+            <option value="es">Español 🇪🇸</option>
+            <option value="fr">Français 🇫🇷</option>
+            <option value="it">Italiano 🇮🇹</option>
+            <option value="pt">Português 🇵🇹</option>
+            <option value="ru">Русский 🇷🇺</option>
+            <option value="zh">中文 🇨🇳</option>
+            <option value="ja">日本語 🇯🇵</option>
+            <option value="ko">한국어 🇰🇷</option>
+        </select>
+    </div>
+
     <!-- Header -->
     <header class="main-header">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">SAM KRASILNIKOV</a>
+            <a href="index.html" class="nav-logo" data-i18n="nav.logo">SAM KRASILNIKOV</a>
+            
+            <!-- Десктопная навигация -->
             <nav class="nav-links">
-                <a href="#portfolio">Portfolio</a>
-                <a href="#philosophy">Philosophy</a>
-                <a href="#contact">Contact</a>
-                <a href="index.html">Main Portfolio</a>
+                <a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
+                <a href="#about" data-i18n="nav.about">About</a>
+                <a href="#philosophy" data-i18n="nav.philosophy">Philosophy</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
+                <a href="index.html" data-i18n="nav.main">Main Portfolio</a>
             </nav>
+            
+            <!-- Кнопка CTA для десктопа -->
+            <a href="#contact" class="nav-cta" data-i18n="nav.cta">Inquire Now</a>
+            
+            <!-- Кнопка гамбургер-меню для мобильных -->
+            <button class="mobile-menu-btn" aria-label="Open menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
         </div>
     </header>
 
+    <!-- Мобильное меню -->
+    <div class="mobile-menu-overlay"></div>
+    <nav class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Close menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="mobile-menu-content">
+            <a href="#portfolio" class="mobile-nav-link" data-i18n="nav.portfolio">Portfolio</a>
+            <a href="#about" class="mobile-nav-link" data-i18n="nav.about">About</a>
+            <a href="#philosophy" class="mobile-nav-link" data-i18n="nav.philosophy">Philosophy</a>
+            <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">Contact</a>
+            <a href="index.html" class="mobile-nav-link" data-i18n="nav.main">Main Portfolio</a>
+            <a href="#contact" class="mobile-nav-cta" data-i18n="nav.cta">Inquire Now</a>
+        </div>
+    </nav>
+
     <!-- Hero -->
     <section class="hero-section">
+        <!-- Добавляем видеофон -->
+        <video class="hero-background-video" autoplay muted loop playsinline 
+               poster="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80">
+            <!-- Источник видео - замените на свое! -->
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-a-couple-getting-married-under-a-tree-4732-large.mp4" type="video/mp4">
+            <!-- Fallback изображение, если видео не загрузится -->
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80" 
+                 alt="Wedding background" style="width: 100%; height: 100%; object-fit: cover;">
+        </video>
+        
         <div class="hero-content">
-            <div class="hero-badge">For LeroMovie</div>
+            <div class="hero-badge" data-i18n="hero.badge">For LeroMovie</div>
             <h1 class="hero-title">
-                Timeless Wedding Films
-                <span>A Documentary Art</span>
+                <span data-i18n="hero.title.line1">Timeless Wedding Films</span>
+                <span data-i18n="hero.title.line2">A Documentary Art</span>
             </h1>
-            <p class="hero-subtitle">
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
                 Where authentic emotion meets cinematic elegance. Preserving the delicate, fleeting moments of your celebration as a work of art.
             </p>
             <div class="hero-line"></div>
+            <!-- Добавляем кнопку призыва к действию -->
+            <a href="#contact" class="hero-cta" data-i18n="hero.cta">Begin Your Story →</a>
+        </div>
+        
+        <!-- Индикатор прокрутки -->
+        <div class="scroll-indicator">
+            <svg width="30" height="50" viewBox="0 0 30 50">
+                <rect x="12" y="0" width="6" height="20" rx="3" fill="var(--color-gold)" opacity="0.6">
+                    <animate attributeName="height" values="20;40;20" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="y" values="0;10;0" dur="2s" repeatCount="indefinite"/>
+                </rect>
+            </svg>
         </div>
     </section>
 
     <!-- Portfolio -->
     <section id="portfolio" class="portfolio-section">
         <div class="section-header">
-            <h2 class="section-title">The Portfolio</h2>
+            <h2 class="section-title" data-i18n="portfolio.title">The Portfolio</h2>
             <div class="section-line"></div>
-            <p class="section-subtitle">
+            <p class="section-subtitle" data-i18n="portfolio.subtitle">
                 A curated collection of destination wedding narratives, each a testament to love's unique and enduring story.
             </p>
         </div>
@@ -644,7 +1132,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">James & Allison</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -657,7 +1145,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Giavanna & Landon</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -670,7 +1158,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Nicole & Joshua</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -683,7 +1171,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Maricel & Ruben</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -696,7 +1184,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Merjen & Clark</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -709,7 +1197,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Nuvia & Martin</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -722,7 +1210,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Karys & Samuel</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -735,7 +1223,7 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Alejandra & Daniel</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
 
@@ -748,17 +1236,89 @@
                 </div>
                 <div class="card-content">
                     <h3 class="wedding-title">Shanice & Danielle</h3>
-                    <p class="wedding-subtitle">LeroMovie Wedding Film</p>
+                    <p class="wedding-subtitle" data-i18n="portfolio.film">LeroMovie Wedding Film</p>
                 </div>
             </a>
+
+            <!-- Card 10: Dina & Shein (Новая свадьба вне LeroMovie) -->
+            <a href="https://youtu.be/j-i90sZ-PhM" class="wedding-card" target="_blank" rel="noopener noreferrer">
+                <div class="image-container">
+                    <img src="https://github.com/SamKras/Wedding-website/blob/main/Dina%20and%20Shein.png?raw=true" 
+                         alt="Dina & Shein wedding film" class="wedding-image" loading="lazy">
+                    <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                </div>
+                <div class="card-content">
+                    <h3 class="wedding-title">Dina & Shein</h3>
+                    <p class="wedding-subtitle personal-project">Cinematic Wedding Film</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about-section">
+        <div class="section-header">
+            <h2 class="section-title" data-i18n="about.title">The Artist Behind the Lens</h2>
+            <div class="section-line"></div>
+            <p class="section-subtitle" data-i18n="about.subtitle">
+                International Director of Photography with a passion for authentic storytelling
+            </p>
+        </div>
+        
+        <div class="about-container">
+            <!-- Фото (замените на свою ссылку) -->
+            <div class="about-image">
+                <div class="image-frame">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" 
+                         alt="Sam Krasilnikov" class="about-portrait">
+                    <div class="frame-decoration"></div>
+                </div>
+            </div>
+            
+            <!-- Текст -->
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-i18n="about.text1">
+                        With over 8 years of experience in luxury wedding cinematography, I've had the honor of capturing 
+                        some of the most intimate and beautiful celebrations across Europe, the United States, and Asia.
+                    </p>
+                    <p data-i18n="about.text2">
+                        My approach is rooted in documentary authenticity—I believe the most powerful moments are 
+                        the unscripted ones. Working discreetly and intuitively, I focus on capturing the genuine 
+                        emotions, whispered promises, and spontaneous laughter that define your unique love story.
+                    </p>
+                    <p data-i18n="about.text3">
+                        My work has been featured in collaborations with leading wedding production studios including 
+                        <strong>RomaVera Films</strong>, <strong>Dreamwood</strong>, and <strong>LeroMovie</strong>. 
+                        Each collaboration enriches my perspective and allows me to bring diverse cinematic approaches 
+                        to every project.
+                    </p>
+                </div>
+                
+                <div class="about-features">
+                    <h3 data-i18n="about.specialties">Specialties & Approach</h3>
+                    <ul>
+                        <li data-i18n="about.feature1"><span>⁃</span> Cinematic Documentary Style</li>
+                        <li data-i18n="about.feature2"><span>⁃</span> Aerial Drone Cinematography</li>
+                        <li data-i18n="about.feature3"><span>⁃</span> 4K & 6K RAW Workflow</li>
+                        <li data-i18n="about.feature4"><span>⁃</span> Color Grading & Film Emulation</li>
+                        <li data-i18n="about.feature5"><span>⁃</span> Multi-Camera Productions</li>
+                        <li data-i18n="about.feature6"><span>⁃</span> Available Worldwide</li>
+                    </ul>
+                </div>
+                
+                <div class="about-cta">
+                    <a href="#contact" class="contact-email" data-i18n="about.cta">Discuss Your Vision</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Philosophy -->
     <section id="philosophy" class="philosophy-section">
         <div class="philosophy-container">
-            <h2 class="philosophy-title">The Approach</h2>
-            <p class="philosophy-text">
+            <h2 class="philosophy-title" data-i18n="philosophy.title">The Approach</h2>
+            <p class="philosophy-text" data-i18n="philosophy.text">
                 True luxury lies in authenticity. My cinematography is an exercise in presence — an unobtrusive observation that captures the whispered promise, the unguarded laughter, the silent tear. The film becomes not just a record, but a sensory echo of the day itself.
             </p>
         </div>
@@ -767,34 +1327,484 @@
     <!-- Contact -->
     <section id="contact" class="contact-section">
         <div class="contact-container">
-            <h2 class="contact-title">Begin Your Story</h2>
-            <p class="contact-text">
+            <h2 class="contact-title" data-i18n="contact.title">Begin Your Story</h2>
+            <p class="contact-text" data-i18n="contact.text">
                 To discuss capturing your celebration with this same intentional and artistic perspective, please reach out.
             </p>
-            <a href="mailto:krasilniksem@gmail.com" class="contact-email">krasilniksem@gmail.com</a>
+            <a href="mailto:krasilniksem@gmail.com" class="contact-email" data-i18n="contact.email">krasilniksem@gmail.com</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-container">
-            <div class="footer-logo">SAM KRASILNIKOV</div>
+            <div class="footer-logo" data-i18n="footer.logo">SAM KRASILNIKOV</div>
             <nav class="footer-nav">
-                <a href="#portfolio">Portfolio</a>
-                <a href="#philosophy">Philosophy</a>
-                <a href="#contact">Contact</a>
-                <a href="index.html">Main Portfolio</a>
+                <a href="#portfolio" data-i18n="footer.portfolio">Portfolio</a>
+                <a href="#about" data-i18n="footer.about">About</a>
+                <a href="#philosophy" data-i18n="footer.philosophy">Philosophy</a>
+                <a href="#contact" data-i18n="footer.contact">Contact</a>
+                <a href="index.html" data-i18n="footer.main">Main Portfolio</a>
             </nav>
             <div class="footer-line"></div>
-            <p class="footer-copyright">
+            <p class="footer-copyright" data-i18n="footer.copyright">
                 Cinematography for LeroMovie &copy; <span id="current-year"></span>
             </p>
         </div>
     </footer>
 
     <script>
-        // Set current year in footer
+        // Set current year
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Translation dictionary
+        const translations = {
+            en: {
+                // Navigation
+                "nav.logo": "SAM KRASILNIKOV",
+                "nav.portfolio": "Portfolio",
+                "nav.about": "About",
+                "nav.philosophy": "Philosophy",
+                "nav.contact": "Contact",
+                "nav.main": "Main Portfolio",
+                "nav.cta": "Inquire Now",
+                
+                // Hero
+                "hero.badge": "For LeroMovie",
+                "hero.title.line1": "Timeless Wedding Films",
+                "hero.title.line2": "A Documentary Art",
+                "hero.subtitle": "Where authentic emotion meets cinematic elegance. Preserving the delicate, fleeting moments of your celebration as a work of art.",
+                "hero.cta": "Begin Your Story →",
+                
+                // Portfolio
+                "portfolio.title": "The Portfolio",
+                "portfolio.subtitle": "A curated collection of destination wedding narratives, each a testament to love's unique and enduring story.",
+                "portfolio.film": "LeroMovie Wedding Film",
+                
+                // About
+                "about.title": "The Artist Behind the Lens",
+                "about.subtitle": "International Director of Photography with a passion for authentic storytelling",
+                "about.text1": "With over 8 years of experience in luxury wedding cinematography, I've had the honor of capturing some of the most intimate and beautiful celebrations across Europe, the United States, and Asia.",
+                "about.text2": "My approach is rooted in documentary authenticity—I believe the most powerful moments are the unscripted ones. Working discreetly and intuitively, I focus on capturing the genuine emotions, whispered promises, and spontaneous laughter that define your unique love story.",
+                "about.text3": "My work has been featured in collaborations with leading wedding production studios including RomaVera Films, Dreamwood, and LeroMovie. Each collaboration enriches my perspective and allows me to bring diverse cinematic approaches to every project.",
+                "about.specialties": "Specialties & Approach",
+                "about.feature1": "Cinematic Documentary Style",
+                "about.feature2": "Aerial Drone Cinematography",
+                "about.feature3": "4K & 6K RAW Workflow",
+                "about.feature4": "Color Grading & Film Emulation",
+                "about.feature5": "Multi-Camera Productions",
+                "about.feature6": "Available Worldwide",
+                "about.cta": "Discuss Your Vision",
+                
+                // Philosophy
+                "philosophy.title": "The Approach",
+                "philosophy.text": "True luxury lies in authenticity. My cinematography is an exercise in presence — an unobtrusive observation that captures the whispered promise, the unguarded laughter, the silent tear. The film becomes not just a record, but a sensory echo of the day itself.",
+                
+                // Contact
+                "contact.title": "Begin Your Story",
+                "contact.text": "To discuss capturing your celebration with this same intentional and artistic perspective, please reach out.",
+                "contact.email": "krasilniksem@gmail.com",
+                
+                // Footer
+                "footer.logo": "SAM KRASILNIKOV",
+                "footer.portfolio": "Portfolio",
+                "footer.about": "About",
+                "footer.philosophy": "Philosophy",
+                "footer.contact": "Contact",
+                "footer.main": "Main Portfolio",
+                "footer.copyright": "Cinematography for LeroMovie &copy; "
+            },
+            
+            sr: { // Serbian
+                "nav.logo": "SAM KRASILNIKOV",
+                "nav.portfolio": "Portfolio",
+                "nav.about": "O meni",
+                "nav.philosophy": "Filozofija",
+                "nav.contact": "Kontakt",
+                "nav.main": "Glavni Portfolio",
+                "nav.cta": "Pošaljite upit",
+                "hero.badge": "Za LeroMovie",
+                "hero.title.line1": "Večni Svadbeni Filmovi",
+                "hero.title.line2": "Dokumentarna Umetnost",
+                "hero.subtitle": "Gde se autentična emocija susreće sa filmskom elegancijom. Čuvanje delikatnih, prolaznih trenutaka vašeg slavlja kao umetničkog dela.",
+                "hero.cta": "Započnite Vašu Priču →",
+                "portfolio.title": "Portfolio",
+                "portfolio.subtitle": "Odabrana kolekcija destinacijskih svadbenih priča, svaka svedočanstvo jedinstvene i trajne ljubavi.",
+                "portfolio.film": "Svadbeni Film LeroMovie",
+                "about.title": "Umetnik Iza Objektiva",
+                "about.subtitle": "Internacionalni direktor fotografije sa strašću za autentično pripovedanje",
+                "about.text1": "Sa preko 8 godina iskustva u luksuznoj svadbenoj kinematografiji, imao sam čast da snimim neke od najintimnijih i najlepših proslava širom Evrope, Sjedinjenih Država i Azije.",
+                "about.text2": "Moj pristup je ukorenjen u dokumentarnoj autentičnosti — verujem da su najmoćniji trenuci oni koji nisu unapred napisani. Radeći diskretno i intuitivno, fokusiram se na hvatanje pravih emocija, šapnutih obećanja i spontanog smeha koji definišu vašu jedinstvenu ljubavnu priču.",
+                "about.text3": "Moj rad je predstavljen u saradnji sa vodećim studijima za produkciju svadbi, uključujući RomaVera Films, Dreamwood i LeroMovie. Svaka saradnja obogaćuje moju perspektivu i omogućava mi da unesem različite filmske pristupe u svaki projekat.",
+                "about.specialties": "Specijalnosti i pristup",
+                "about.feature1": "Filmski dokumentarni stil",
+                "about.feature2": "Aerofilmovi dronom",
+                "about.feature3": "4K i 6K RAW radni tok",
+                "about.feature4": "Kolor korekcija i filmska emulacija",
+                "about.feature5": "Produkcije sa više kamera",
+                "about.feature6": "Dostupan širom sveta",
+                "about.cta": "Razgovarajte o Vašoj Viziji",
+                "philosophy.title": "Pristup",
+                "philosophy.text": "Pravi luksuz leži u autentičnosti. Moja kinematografija je vežba prisustva — neupadljivo posmatranje koje hvata šapnutu obećanja, nesputan smeh, tihu suzu. Film postaje ne samo zapis, već senzorni odjek samog dana.",
+                "contact.title": "Započnite Vašu Priču",
+                "contact.text": "Da biste razgovarali o snimanju vašeg slavlja istim namernim i umetničkim pristupom, kontaktirajte nas.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "SAM KRASILNIKOV",
+                "footer.portfolio": "Portfolio",
+                "footer.about": "O meni",
+                "footer.philosophy": "Filozofija",
+                "footer.contact": "Kontakt",
+                "footer.main": "Glavni Portfolio",
+                "footer.copyright": "Kinematografija za LeroMovie &copy; "
+            },
+            
+            ar: { // Arabic (UAE)
+                "nav.logo": "سام كراسيلنيكوف",
+                "nav.portfolio": "الأعمال",
+                "nav.about": "عني",
+                "nav.philosophy": "الفلسفة",
+                "nav.contact": "اتصل بنا",
+                "nav.main": "المحفظة الرئيسية",
+                "nav.cta": "استفسر الآن",
+                "hero.badge": "لـ LeroMovie",
+                "hero.title.line1": "أفلام زفاف خالدة",
+                "hero.title.line2": "فن وثائقي",
+                "hero.subtitle": "حيث تلتقي المشاعر الأصيلة بأناقة السينما. حفظ اللحظات الرقيقة والعابرة لاحتفالك كعمل فني.",
+                "hero.cta": "ابدأ قصتك →",
+                "portfolio.title": "الأعمال",
+                "portfolio.subtitle": "مجموعة مختارة من روايات حفلات الزفاف الوجهة، كل منها شهادة على قصة حب فريدة ودائمة.",
+                "portfolio.film": "فيلم زفاف LeroMovie",
+                "about.title": "الفنان خلف الكاميرا",
+                "about.subtitle": "مدير التصوير الدولي مع شغف بسرد القصص الأصيلة",
+                "about.text1": "مع أكثر من 8 سنوات من الخبرة في تصوير أفلام الزفاف الفاخرة، كان لي شرف تصوير بعض من أكثر الاحتفالات حميمية وجمالاً عبر أوروبا والولايات المتحدة وآسيا.",
+                "about.text2": "يستند نهجي إلى الأصالة الوثائقية - أعتقد أن اللحظات الأكثر قوة هي تلك غير المكتوبة. بالعمل بمراقبة وحدس، أركز على التقاط المشاعر الحقيقية، والوعود المهموسة، والضحك العفوي الذي يحدد قصتك الحب الفريدة.",
+                "about.text3": "تم عرض عملي في تعاونات مع استوديوهات إنتاج الزفاف الرائدة بما في ذلك RomaVera Films و Dreamwood و LeroMovie. كل تعاون يثري منظورتي ويسمح لي بتقديم مقاربات سينمائية متنوعة لكل مشروع.",
+                "about.specialties": "التخصصات والنهج",
+                "about.feature1": "أسلوب وثائقي سينمائي",
+                "about.feature2": "تصوير جوي بطائرة بدون طيار",
+                "about.feature3": "سير عمل 4K و 6K RAW",
+                "about.feature4": "تصحيح الألوان ومحاكاة الفيلم",
+                "about.feature5": "إنتاجات متعددة الكاميرات",
+                "about.feature6": "متاح حول العالم",
+                "about.cta": "ناقش رؤيتك",
+                "philosophy.title": "النهج",
+                "philosophy.text": "يكمن الفخامة الحقيقية في الأصالة. تصويري السينمائي هو ممارسة للحضور — ملاحظة غير متطفلة تلتقط الوعس الذي يهمس به، الضحك الطليق، الدمعة الصامتة. يصبح الفيلم ليس مجرد تسجيل، بل صدى حسي ليوم الاحتفال نفسه.",
+                "contact.title": "ابدأ قصتك",
+                "contact.text": "للنقاش حول تصوير احتفالك بنفس المنظور المتعمد والفني، يرجى التواصل معنا.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "سام كراسيلنيكوف",
+                "footer.portfolio": "الأعمال",
+                "footer.about": "عني",
+                "footer.philosophy": "الفلسفة",
+                "footer.contact": "اتصل بنا",
+                "footer.main": "المحفظة الرئيسية",
+                "footer.copyright": "تصوير سينمائي لـ LeroMovie &copy; "
+            },
+            
+            de: { // German
+                "nav.logo": "SAM KRASILNIKOV",
+                "nav.portfolio": "Portfolio",
+                "nav.about": "Über mich",
+                "nav.philosophy": "Philosophie",
+                "nav.contact": "Kontakt",
+                "nav.main": "Hauptportfolio",
+                "nav.cta": "Jetzt anfragen",
+                "hero.badge": "Für LeroMovie",
+                "hero.title.line1": "Zeitlose Hochzeitsfilme",
+                "hero.title.line2": "Eine Dokumentarkunst",
+                "hero.subtitle": "Wo authentische Emotion auf filmische Eleganz trifft. Die Bewahrung der zarten, flüchtigen Momente Ihrer Feier als Kunstwerk.",
+                "hero.cta": "Beginnen Sie Ihre Geschichte →",
+                "portfolio.title": "Portfolio",
+                "portfolio.subtitle": "Eine kuratierte Sammlung von Destination-Hochzeitsgeschichten, jede ein Zeugnis der einzigartigen und beständigen Liebe.",
+                "portfolio.film": "LeroMovie Hochzeitsfilm",
+                "about.title": "Der Künstler hinter der Linse",
+                "about.subtitle": "Internationaler Director of Photography mit einer Leidenschaft für authentisches Storytelling",
+                "about.text1": "Mit über 8 Jahren Erfahrung in der Luxus-Hochzeitskinematografie hatte ich die Ehre, einige der intimsten und schönsten Feiern in Europa, den USA und Asien festzuhalten.",
+                "about.text2": "Mein Ansatz ist in dokumentarischer Authentizität verwurzelt – ich glaube, dass die stärksten Momente die ungeschriebenen sind. Indiskret und intuitiv arbeitend, konzentriere ich mich darauf, die echten Emotionen, geflüsterten Versprechen und das spontane Lachen einzufangen, die Ihre einzigartige Liebesgeschichte definieren.",
+                "about.text3": "Meine Arbeit wurde in Zusammenarbeit mit führenden Hochzeitsproduktionsstudios vorgestellt, darunter RomaVera Films, Dreamwood und LeroMovie. Jede Zusammenarbeit bereichert meine Perspektive und ermöglicht es mir, unterschiedliche filmische Ansätze in jedes Projekt einzubringen.",
+                "about.specialties": "Spezialitäten & Ansatz",
+                "about.feature1": "Filmischer Dokumentarstil",
+                "about.feature2": "Luftaufnahmen mit Drohne",
+                "about.feature3": "4K & 6K RAW Workflow",
+                "about.feature4": "Farbkorrektur & Film-Emulation",
+                "about.feature5": "Mehrkamera-Produktionen",
+                "about.feature6": "Weltweit verfügbar",
+                "about.cta": "Besprechen Sie Ihre Vision",
+                "philosophy.title": "Der Ansatz",
+                "philosophy.text": "Wahre Luxus liegt in Authentizität. Meine Kinematografie ist eine Übung der Präsenz — eine unaufdringliche Beobachtung, die das geflüsterte Versprechen, das ungezwungene Lachen, die stille Träne einfängt. Der Film wird nicht nur zur Aufzeichnung, sondern zum sinnlichen Echo des Tages selbst.",
+                "contact.title": "Beginnen Sie Ihre Geschichte",
+                "contact.text": "Um über die Aufnahme Ihrer Feier mit derselben intentionalen und künstlerischen Perspektive zu sprechen, kontaktieren Sie uns bitte.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "SAM KRASILNIKOV",
+                "footer.portfolio": "Portfolio",
+                "footer.about": "Über mich",
+                "footer.philosophy": "Philosophie",
+                "footer.contact": "Kontakt",
+                "footer.main": "Hauptportfolio",
+                "footer.copyright": "Kinematografie für LeroMovie &copy; "
+            },
+            
+            es: { // Spanish
+                "nav.logo": "SAM KRASILNIKOV",
+                "nav.portfolio": "Portafolio",
+                "nav.about": "Sobre mí",
+                "nav.philosophy": "Filosofía",
+                "nav.contact": "Contacto",
+                "nav.main": "Portafolio Principal",
+                "nav.cta": "Consultar ahora",
+                "hero.badge": "Para LeroMovie",
+                "hero.title.line1": "Películas de Boda Atemporales",
+                "hero.title.line2": "Un Arte Documental",
+                "hero.subtitle": "Donde la emoción auténtica se encuentra con la elegancia cinematográfica. Preservando los momentos delicados y fugaces de su celebración como una obra de arte.",
+                "hero.cta": "Comience Su Historia →",
+                "portfolio.title": "Portafolio",
+                "portfolio.subtitle": "Una colección curada de narrativas de bodas destino, cada una un testimonio del amor único y perdurable.",
+                "portfolio.film": "Película de Boda LeroMovie",
+                "about.title": "El Artista Detrás del Lente",
+                "about.subtitle": "Director de Fotografía Internacional con pasión por la narración auténtica",
+                "about.text1": "Con más de 8 años de experiencia en cinematografía de bodas de lujo, he tenido el honor de capturar algunas de las celebraciones más íntimas y hermosas en Europa, Estados Unidos y Asia.",
+                "about.text2": "Mi enfoque está arraigado en la autenticidad documental — creo que los momentos más poderosos son los no escritos. Trabajando de manera discreta e intuitiva, me enfoco en capturar las emociones genuinas, las promesas susurradas y la risa espontánea que definen su historia de amor única.",
+                "about.text3": "Mi trabajo ha sido presentado en colaboraciones con estudios de producción de bodas líderes, incluidos RomaVera Films, Dreamwood y LeroMovie. Cada colaboración enriquece mi perspectiva y me permite aportar diversos enfoques cinematográficos a cada proyecto.",
+                "about.specialties": "Especialidades y Enfoque",
+                "about.feature1": "Estilo Documental Cinematográfico",
+                "about.feature2": "Cinematografía Aérea con Dron",
+                "about.feature3": "Flujo de Trabajo 4K y 6K RAW",
+                "about.feature4": "Corrección de Color y Emulación de Película",
+                "about.feature5": "Producciones Multicámara",
+                "about.feature6": "Disponible en Todo el Mundo",
+                "about.cta": "Discuta Su Visión",
+                "philosophy.title": "El Enfoque",
+                "philosophy.text": "El verdadero lujo reside en la autenticidad. Mi cinematografía es un ejercicio de presencia — una observación discreta que captura la promesa susurrada, la risa desinhibida, la lágrima silenciosa. La película se convierte no solo en un registro, sino en un eco sensorial del día mismo.",
+                "contact.title": "Comience Su Historia",
+                "contact.text": "Para discutir la captura de su celebración con esta misma perspectiva intencional y artística, por favor póngase en contacto.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "SAM KRASILNIKOV",
+                "footer.portfolio": "Portafolio",
+                "footer.about": "Sobre mí",
+                "footer.philosophy": "Filosofía",
+                "footer.contact": "Contacto",
+                "footer.main": "Portafolio Principal",
+                "footer.copyright": "Cinematografía para LeroMovie &copy; "
+            },
+            
+            fr: { // French
+                "nav.logo": "SAM KRASILNIKOV",
+                "nav.portfolio": "Portfolio",
+                "nav.about": "À propos",
+                "nav.philosophy": "Philosophie",
+                "nav.contact": "Contact",
+                "nav.main": "Portfolio Principal",
+                "nav.cta": "Demander maintenant",
+                "hero.badge": "Pour LeroMovie",
+                "hero.title.line1": "Films de Mariage Intemporels",
+                "hero.title.line2": "Un Art Documentaire",
+                "hero.subtitle": "Là où l'émotion authentique rencontre l'élégance cinématographique. Préserver les moments délicats et fugaces de votre célébration comme une œuvre d'art.",
+                "hero.cta": "Commencez Votre Histoire →",
+                "portfolio.title": "Portfolio",
+                "portfolio.subtitle": "Une collection organisée de récits de mariages destination, chacun un témoignage d'un amour unique et durable.",
+                "portfolio.film": "Film de Mariage LeroMovie",
+                "about.title": "L'Artiste Derrière l'Objectif",
+                "about.subtitle": "Directeur de la photographie international avec une passion pour la narration authentique",
+                "about.text1": "Avec plus de 8 ans d'expérience dans la cinématographie de mariage de luxe, j'ai eu l'honneur de capturer certaines des célébrations les plus intimes et les plus belles à travers l'Europe, les États-Unis et l'Asie.",
+                "about.text2": "Mon approche est enracinée dans l'authenticité documentaire — je crois que les moments les plus puissants sont ceux non écrits. Travaillant discrètement et intuitivement, je me concentre sur la capture des émotions authentiques, des promesses murmurées et des rires spontanés qui définissent votre histoire d'amour unique.",
+                "about.text3": "Mon travail a été présenté dans des collaborations avec des studios de production de mariage de premier plan, y compris RomaVera Films, Dreamwood et LeroMovie. Chaque collaboration enrichit ma perspective et me permet d'apporter diverses approches cinématographiques à chaque projet.",
+                "about.specialties": "Spécialités et Approche",
+                "about.feature1": "Style Documentaire Cinématographique",
+                "about.feature2": "Cinématographie Aérienne par Drone",
+                "about.feature3": "Flux de Travail 4K et 6K RAW",
+                "about.feature4": "Étalonnage des Couleurs et Émulation de Film",
+                "about.feature5": "Productions Multicaméras",
+                "about.feature6": "Disponible dans le Monde Entier",
+                "about.cta": "Discutez de Votre Vision",
+                "philosophy.title": "L'Approche",
+                "philosophy.text": "Le vrai luxe réside dans l'authenticité. Ma cinématographie est un exercice de présence — une observation discrète qui capture la promesse murmurée, le rire sans retenue, la larme silencieuse. Le film devient non seulement un enregistrement, mais un écho sensoriel du jour même.",
+                "contact.title": "Commencez Votre Histoire",
+                "contact.text": "Pour discuter de la capture de votre célébration avec cette même perspective intentionnelle et artistique, veuillez nous contacter.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "SAM KRASILNIKOV",
+                "footer.portfolio": "Portfolio",
+                "footer.about": "À propos",
+                "footer.philosophy": "Philosophie",
+                "footer.contact": "Contact",
+                "footer.main": "Portfolio Principal",
+                "footer.copyright": "Cinématographie pour LeroMovie &copy; "
+            },
+            
+            it: { // Italian
+                "nav.logo": "SAM KRASILNIKOV",
+                "nav.portfolio": "Portfolio",
+                "nav.about": "Chi sono",
+                "nav.philosophy": "Filosofia",
+                "nav.contact": "Contatto",
+                "nav.main": "Portfolio Principale",
+                "nav.cta": "Richiedi ora",
+                "hero.badge": "Per LeroMovie",
+                "hero.title.line1": "Film Matrimoniali Senza Tempo",
+                "hero.title.line2": "Un'Arte Documentaristica",
+                "hero.subtitle": "Dove l'emozione autentica incontra l'eleganza cinematografica. Preservando i momenti delicati e fugaci della vostra celebrazione come un'opera d'arte.",
+                "hero.cta": "Inizia La Tua Storia →",
+                "portfolio.title": "Portfolio",
+                "portfolio.subtitle": "Una collezione curata di narrazioni di matrimoni destinazione, ognuna una testimonianza di un amore unico e duraturo.",
+                "portfolio.film": "Film Matrimoniale LeroMovie",
+                "about.title": "L'Artista Dietro l'Obiettivo",
+                "about.subtitle": "Direttore della Fotografia Internazionale con una passione per la narrazione autentica",
+                "about.text1": "Con oltre 8 anni di esperienza nella cinematografia di matrimoni di lusso, ho avuto l'onore di catturare alcune delle celebrazioni più intime e belle in Europa, Stati Uniti e Asia.",
+                "about.text2": "Il mio approccio è radicato nell'autenticità documentaristica — credo che i momenti più potenti siano quelli non scritti. Lavorando in modo discreto e intuitivo, mi concentro sulla cattura delle emozioni genuine, delle promesse sussurrate e delle risate spontanee che definiscono la tua storia d'amore unica.",
+                "about.text3": "Il mio lavoro è stato presentato in collaborazioni con studi di produzione di matrimoni leader, tra cui RomaVera Films, Dreamwood e LeroMovie. Ogni collaborazione arricchisce la mia prospettiva e mi permette di portare diversi approcci cinematografici in ogni progetto.",
+                "about.specialties": "Specialità e Approccio",
+                "about.feature1": "Stile Documentaristico Cinematografico",
+                "about.feature2": "Cinematografia Aerea con Drone",
+                "about.feature3": "Flusso di Lavoro 4K e 6K RAW",
+                "about.feature4": "Correzione Colore ed Emulazione di Pellicola",
+                "about.feature5": "Produzioni Multicamera",
+                "about.feature6": "Disponibile in Tutto il Mondo",
+                "about.cta": "Discuti la Tua Visione",
+                "philosophy.title": "L'Approccio",
+                "philosophy.text": "Il vero lusso risiede nell'autenticità. La mia cinematografia è un esercizio di presenza — un'osservazione discreta che cattura la promessa sussurrata, la risata spontanea, la lacrima silenziosa. Il film diventa non solo una registrazione, ma un'eco sensoriale del giorno stesso.",
+                "contact.title": "Inizia La Tua Storia",
+                "contact.text": "Per discutere della ripresa della tua celebrazione con questa stessa prospettiva intenzionale e artistica, per favore contattaci.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "SAM KRASILNIKOV",
+                "footer.portfolio": "Portfolio",
+                "footer.about": "Chi sono",
+                "footer.philosophy": "Filosofia",
+                "footer.contact": "Contatto",
+                "footer.main": "Portfolio Principale",
+                "footer.copyright": "Cinematografia per LeroMovie &copy; "
+            },
+            
+            pt: { // Portuguese
+                "nav.logo": "SAM KRASILNIKOV",
+                "nav.portfolio": "Portfólio",
+                "nav.about": "Sobre mim",
+                "nav.philosophy": "Filosofia",
+                "nav.contact": "Contato",
+                "nav.main": "Portfólio Principal",
+                "nav.cta": "Consultar agora",
+                "hero.badge": "Para LeroMovie",
+                "hero.title.line1": "Filmes de Casamento Atemporais",
+                "hero.title.line2": "Uma Arte Documental",
+                "hero.subtitle": "Onde a emoção autêntica encontra a elegância cinematográfica. Preservando os momentos delicados e fugazes da sua celebração como uma obra de arte.",
+                "hero.cta": "Comece Sua História →",
+                "portfolio.title": "Portfólio",
+                "portfolio.subtitle": "Uma coleção curada de narrativas de casamentos destino, cada uma um testemunho de um amor único e duradouro.",
+                "portfolio.film": "Filme de Casamento LeroMovie",
+                "about.title": "O Artista Por Trás das Lentes",
+                "about.subtitle": "Diretor de Fotografia Internacional com paixão por narrativa autêntica",
+                "about.text1": "Com mais de 8 anos de experiência em cinematografia de casamento de luxo, tive a honra de capturar algumas das celebrações mais íntimas e belas pela Europa, Estados Unidos e Ásia.",
+                "about.text2": "Minha abordagem está enraizada na autenticidade documental — acredito que os momentos mais poderosos são os não escritos. Trabalhando de forma discreta e intuitiva, foco em capturar as emoções genuínas, as promessas sussurradas e as risadas espontâneas que definem sua história de amor única.",
+                "about.text3": "Meu trabalho foi apresentado em colaborações com estúdios líderes de produção de casamento, incluindo RomaVera Films, Dreamwood e LeroMovie. Cada colaboração enriquece minha perspectiva e me permite trazer diversas abordagens cinematográficas para cada projeto.",
+                "about.specialties": "Especialidades e Abordagem",
+                "about.feature1": "Estilo Documental Cinematográfico",
+                "about.feature2": "Cinematografia Aérea com Drone",
+                "about.feature3": "Fluxo de Trabalho 4K e 6K RAW",
+                "about.feature4": "Correção de Cor e Emulação de Filme",
+                "about.feature5": "Produções Multicâmera",
+                "about.feature6": "Disponível Mundialmente",
+                "about.cta": "Discuta Sua Visão",
+                "philosophy.title": "A Abordagem",
+                "philosophy.text": "O verdadeiro luxo reside na autenticidade. Minha cinematografia é um exercício de presença — uma observação discreta que captura a promessa sussurrada, a risada desinibida, a lágrima silenciosa. O filme se torna não apenas um registro, mas um eco sensorial do próprio dia.",
+                "contact.title": "Comece Sua História",
+                "contact.text": "Para discutir a captura da sua celebração com esta mesma perspectiva intencional e artística, por favor entre em contato.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "SAM KRASILNIKOV",
+                "footer.portfolio": "Portfólio",
+                "footer.about": "Sobre mim",
+                "footer.philosophy": "Filosofia",
+                "footer.contact": "Contato",
+                "footer.main": "Portfólio Principal",
+                "footer.copyright": "Cinematografia para LeroMovie &copy; "
+            },
+            
+            ru: { // Russian
+                "nav.logo": "СЭМ КРАСИЛЬНИКОВ",
+                "nav.portfolio": "Портфолио",
+                "nav.about": "Обо мне",
+                "nav.philosophy": "Философия",
+                "nav.contact": "Контакты",
+                "nav.main": "Главное Портфолио",
+                "nav.cta": "Отправить запрос",
+                "hero.badge": "Для LeroMovie",
+                "hero.title.line1": "Вечные Свадебные Фильмы",
+                "hero.title.line2": "Документальное Искусство",
+                "hero.subtitle": "Где подлинная эмоция встречается с кинематографической элегантностью. Сохранение хрупких, мимолетных моментов вашего торжества как произведения искусства.",
+                "hero.cta": "Начните Вашу Историю →",
+                "portfolio.title": "Портфолио",
+                "portfolio.subtitle": "Кураторская коллекция повествований о свадьбах в разных странах, каждое из которых свидетельствует об уникальной и вечной любви.",
+                "portfolio.film": "Свадебный Фильм LeroMovie",
+                "about.title": "Художник За Объективом",
+                "about.subtitle": "Международный директор фотографии со страстью к аутентичному повествованию",
+                "about.text1": "Более 8 лет опыта в роскошной свадебной кинематографии позволили мне запечатлеть одни из самых интимных и красивых торжеств по всей Европе, США и Азии.",
+                "about.text2": "Мой подход основан на документальной аутентичности — я верю, что самые сильные моменты — это неподготовленные. Работая ненавязчиво и интуитивно, я сосредотачиваюсь на съемке подлинных эмоций, шепотом произнесенных обещаний и спонтанного смеха, которые определяют вашу уникальную историю любви.",
+                "about.text3": "Моя работа была представлена в сотрудничестве с ведущими студиями свадебного производства, включая RomaVera Films, Dreamwood и LeroMovie. Каждое сотрудничество обогащает мой взгляд и позволяет мне применять различные кинематографические подходы к каждому проекту.",
+                "about.specialties": "Специализация и подход",
+                "about.feature1": "Кинематографический документальный стиль",
+                "about.feature2": "Аэросъемка с дрона",
+                "about.feature3": "4K и 6K RAW рабочий процесс",
+                "about.feature4": "Цветокоррекция и эмуляция пленки",
+                "about.feature5": "Многокамерные производства",
+                "about.feature6": "Доступен по всему миру",
+                "about.cta": "Обсудите Ваше Видение",
+                "philosophy.title": "Подход",
+                "philosophy.text": "Истинная роскошь заключается в подлинности. Моя кинематография — это упражнение в присутствии — ненавязчивое наблюдение, которое улавливает шепот обещаний, беззаботный смех, тихую слезу. Фильм становится не просто записью, а сенсорным эхом самого дня.",
+                "contact.title": "Начните Вашу Историю",
+                "contact.text": "Чтобы обсудить съемку вашего торжества с таким же осознанным и художественным подходом, пожалуйста, свяжитесь с нами.",
+                "contact.email": "krasilniksem@gmail.com",
+                "footer.logo": "СЭМ КРАСИЛЬНИКОВ",
+                "footer.portfolio": "Портфолио",
+                "footer.about": "Обо мне",
+                "footer.philosophy": "Философия",
+                "footer.contact": "Контакты",
+                "footer.main": "Главное Портфолио",
+                "footer.copyright": "Кинематография для LeroMovie &copy; "
+            }
+        };
+
+        // Language switching function
+        function switchLanguage(lang) {
+            // Add fade-out effect
+            document.body.classList.add('fade-out');
+            
+            setTimeout(() => {
+                // Update all elements with data-i18n attribute
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key]) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.value = translations[lang][key];
+                        } else {
+                            element.textContent = translations[lang][key];
+                        }
+                    }
+                });
+                
+                // Update HTML lang attribute
+                document.documentElement.lang = lang;
+                
+                // Save language preference to localStorage
+                localStorage.setItem('preferred-language', lang);
+                
+                // Remove fade-out effect
+                document.body.classList.remove('fade-out');
+            }, 300);
+        }
+
+        // Initialize language
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferred-language') || 'en';
+            const selector = document.getElementById('language-select');
+            
+            // Set selector to saved language
+            selector.value = savedLang;
+            
+            // Apply saved language
+            switchLanguage(savedLang);
+            
+            // Add event listener for language change
+            selector.addEventListener('change', (e) => {
+                switchLanguage(e.target.value);
+            });
+        });
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -819,7 +1829,7 @@
 
         // Image loading enhancement
         document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('.wedding-image');
+            const images = document.querySelectorAll('.wedding-image, .about-portrait');
             images.forEach(img => {
                 img.addEventListener('load', function() {
                     this.style.opacity = '1';
@@ -830,6 +1840,99 @@
                 if (img.complete) {
                     img.style.opacity = '1';
                 }
+            });
+        });
+
+        // Анимация хедера при скролле
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Мобильное меню
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+                mobileMenuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+        }
+
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        }
+
+        // Закрытие мобильного меню при клике на ссылку
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Плавный скролл для якорных ссылок (обновленная версия)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || targetId === '#0') return;
+                
+                e.preventDefault();
+                
+                // Закрываем мобильное меню, если открыто
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('.main-header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = targetPosition - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Анимация появления элементов при скролле
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Добавляем класс .fade-in к элементам, которые хотим анимировать
+        document.addEventListener('DOMContentLoaded', function() {
+            // Добавьте класс .fade-in к элементам в about и других секциях
+            document.querySelectorAll('.about-container, .philosophy-text, .wedding-card').forEach(el => {
+                el.classList.add('fade-in');
+                observer.observe(el);
             });
         });
     </script>
