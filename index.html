@@ -9,6 +9,7 @@
     <!-- Критическая SEO оптимизация -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://samkrasilnikov.com/weddings">
     
     <!-- Предзагрузка критических ресурсов -->
     <link rel="preload" href="https://github.com/SamKras/Wedding-website/blob/main/Weddings%20BG.jpg?raw=true" as="image">
@@ -563,6 +564,28 @@
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(197, 164, 126, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+        .filter-btn:hover::before {
+            width: 200%;
+            height: 200%;
         }
         .filter-btn:hover {
             border-color: var(--color-gold);
@@ -624,6 +647,25 @@
             overflow: hidden;
             position: relative;
             background-color: var(--color-beige);
+        }
+        .image-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--color-beige);
+            border-top-color: var(--color-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .image-container.loading::before {
+            opacity: 1;
         }
         .wedding-image {
             width: 100%;
@@ -881,6 +923,7 @@
         .faq-item {
             border-bottom: 1px solid rgba(232, 223, 216, 0.6);
             margin-bottom: 1rem;
+            transition: all 0.3s ease;
         }
         .faq-question {
             padding: 1.5rem 0;
@@ -903,6 +946,7 @@
             padding: 0 0 1.5rem;
             color: var(--color-text);
             line-height: 1.7;
+            animation: fadeIn 0.3s ease;
         }
         .faq-answer p { margin-bottom: 1rem; }
 
@@ -1213,6 +1257,10 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
 
         /* Contact Info */
         .contact-info {
@@ -1301,10 +1349,6 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
 
         /* Responsive */
         @media (max-width: 1100px) {
@@ -1326,7 +1370,11 @@
             .hero-title { font-size: 2.5rem; }
             .hero-subtitle { font-size: 1.1rem; }
             .nav-links, .nav-cta { display: none; }
-            .mobile-menu-btn { display: block; }
+            .mobile-menu-btn { 
+                display: block;
+                min-height: 48px;
+                min-width: 48px;
+            }
             .portfolio-grid {
                 grid-template-columns: 1fr;
                 gap: 2.5rem;
@@ -1340,7 +1388,14 @@
                 backdrop-filter: blur(5px);
             }
             .hero-background-image { opacity: 0.15; }
-            .hero-cta { padding: 1rem 2.2rem; font-size: 0.95rem; }
+            .hero-cta { 
+                padding: 1rem 2.2rem; 
+                font-size: 0.95rem;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
             .portfolio-section, .about-section, .philosophy-section, .contact-form-section { padding: 5rem 1.5rem; }
             .philosophy-text { font-size: 1.2rem; padding: 0; }
             .image-container { height: 240px; }
@@ -1359,29 +1414,57 @@
                 scrollbar-width: none;
             }
             .portfolio-filters::-webkit-scrollbar { display: none; }
-            .filter-btn { flex-shrink: 0; }
-            .hero-cta, .form-submit, .filter-btn, .mobile-nav-link {
-                min-height: 44px;
-                min-width: 44px;
+            .filter-btn { 
+                flex-shrink: 0;
+                min-height: 48px;
+                min-width: 48px;
             }
-            .wedding-card { -webkit-tap-highlight-color: transparent; }
             
             /* Карусель для мобильных */
             .portfolio-grid {
                 display: flex;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding: 0 1.5rem;
-                margin: 0 -1.5rem;
                 scroll-padding: 0 1.5rem;
                 grid-template-columns: unset;
+                padding: 0 1.5rem;
+                margin: 0 -1.5rem;
+                gap: 0;
+            }
+            .portfolio-grid::-webkit-scrollbar {
+                height: 8px;
+            }
+            .portfolio-grid::-webkit-scrollbar-track {
+                background: var(--color-beige);
+                border-radius: 4px;
+            }
+            .portfolio-grid::-webkit-scrollbar-thumb {
+                background: var(--color-gold);
+                border-radius: 4px;
             }
             .wedding-card {
                 flex: 0 0 85%;
-                scroll-snap-align: start;
+                scroll-snap-align: center;
                 margin-right: 1.5rem;
+                -webkit-tap-highlight-color: transparent;
             }
             .wedding-card:last-child { margin-right: 0; }
+            
+            .mobile-nav-link {
+                min-height: 48px;
+                min-width: 48px;
+                display: flex;
+                align-items: center;
+                padding: 12px;
+            }
+            
+            .form-submit {
+                width: 100%;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
         @media (max-width: 480px) {
             .hero-title { font-size: 2rem; }
@@ -1390,7 +1473,6 @@
             .footer-nav { gap: 1.5rem; }
             .language-selector select { min-width: 120px; }
             .about-features ul { grid-template-columns: 1fr; }
-            .form-submit { width: 100%; }
             .travel-map { padding: 1rem; }
             .destination-card { padding: 1rem; }
         }
@@ -1412,14 +1494,6 @@
     <div class="language-selector">
         <select id="language-select">
             <option value="en">English 🇬🇧</option>
-            <option value="sr">Српски 🇷🇸</option>
-            <option value="ar">العربية 🇦🇪</option>
-            <option value="de">Deutsch 🇩🇪</option>
-            <option value="es">Español 🇪🇸</option>
-            <option value="fr">Français 🇫🇷</option>
-            <option value="it">Italiano 🇮🇹</option>
-            <option value="pt">Português 🇵🇹</option>
-            <option value="ru">Русский 🇷🇺</option>
         </select>
     </div>
 
@@ -1438,7 +1512,7 @@
             
             <a href="#contact" class="nav-cta">Inquire Now</a>
             
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" aria-label="Open navigation menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 12h18M3 6h18M3 18h18"/>
                 </svg>
@@ -1449,7 +1523,7 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu-overlay"></div>
     <nav class="mobile-menu">
-        <button class="mobile-menu-close">
+        <button class="mobile-menu-close" aria-label="Close navigation menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
@@ -1469,7 +1543,11 @@
         <!-- Hero -->
         <section class="hero-section">
             <img src="https://github.com/SamKras/Wedding-website/blob/main/Weddings%20BG.jpg?raw=true" 
-                 alt="Luxury wedding cinematography background" class="hero-background-image" loading="lazy">
+                 alt="Luxury wedding cinematography background with romantic atmosphere" 
+                 class="hero-background-image" 
+                 loading="lazy"
+                 width="1920"
+                 height="1080">
             
             <div class="hero-content">
                 <h1 class="hero-title">
@@ -1504,11 +1582,11 @@
                 
                 <!-- Filters -->
                 <div class="portfolio-filters">
-                    <button class="filter-btn active" data-filter="all">All Films</button>
-                    <button class="filter-btn" data-filter="leromovie">LeroMovie</button>
-                    <button class="filter-btn" data-filter="personal">Personal Projects</button>
-                    <button class="filter-btn" data-filter="san-francisco">San Francisco</button>
-                    <button class="filter-btn" data-filter="los-angeles">Los Angeles</button>
+                    <button class="filter-btn active" data-filter="all" aria-label="Show all wedding films">All Films</button>
+                    <button class="filter-btn" data-filter="leromovie" aria-label="Show LeroMovie wedding films">LeroMovie</button>
+                    <button class="filter-btn" data-filter="personal" aria-label="Show personal wedding film projects">Personal Projects</button>
+                    <button class="filter-btn" data-filter="san-francisco" aria-label="Show San Francisco wedding films">San Francisco</button>
+                    <button class="filter-btn" data-filter="los-angeles" aria-label="Show Los Angeles wedding films">Los Angeles</button>
                 </div>
             </div>
             
@@ -1517,7 +1595,11 @@
                 <div class="wedding-card visible" data-video-id="j-i90sZ-PhM" data-title="Dina & Shein" data-description="Los Angeles, CA | Luxury Desert Wedding | Cinematic Storytelling" data-category="personal los-angeles" data-views="1542">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Dina%20and%20Shein.png?raw=true" 
-                             alt="Dina & Shein wedding film" class="wedding-image" loading="lazy">
+                             alt="Luxury desert wedding cinematography - Dina & Shein wedding film in Los Angeles" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.5K views</div>
                     </div>
@@ -1531,7 +1613,11 @@
                 <div class="wedding-card" data-video-id="J1Q5qOC_8gg" data-title="Shanice & Danielle" data-description="San Francisco Bay Area | Modern Love | Urban Documentary" data-category="leromovie san-francisco" data-views="1287">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Shanice%20and%20Danielle.png?raw=true" 
-                             alt="Shanice and Danielle wedding film" class="wedding-image" loading="lazy">
+                             alt="Shanice and Danielle wedding film - Modern love story in San Francisco Bay Area" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.2K views</div>
                     </div>
@@ -1545,7 +1631,11 @@
                 <div class="wedding-card" data-video-id="CxL7ODtDAz4" data-title="James & Allison" data-description="San Francisco Bay Area | Cinematic Documentary | Drone Aerials" data-category="leromovie san-francisco" data-views="2310">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/James%20and%20Allison.png?raw=true" 
-                             alt="James & Allison wedding film" class="wedding-image" loading="lazy">
+                             alt="James & Allison wedding film - Cinematic documentary with drone aerials in San Francisco" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">2.3K views</div>
                     </div>
@@ -1559,7 +1649,11 @@
                 <div class="wedding-card" data-video-id="rizc_ROs7vY" data-title="Giavanna & Landon" data-description="San Francisco Bay Area | Golden Hour Cinematography | Emotional Storytelling" data-category="leromovie san-francisco" data-views="1895">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Giavanna%20and%20Landon.png?raw=true" 
-                             alt="Giavanna & Landon wedding film" class="wedding-image" loading="lazy">
+                             alt="Giavanna & Landon wedding film - Golden hour cinematography with emotional storytelling" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.8K views</div>
                     </div>
@@ -1573,7 +1667,11 @@
                 <div class="wedding-card" data-video-id="dx7ZeAc2_l8" data-title="Nicole & Joshua" data-description="San Francisco Bay Area | Beach Wedding | Natural Light Cinematography" data-category="leromovie san-francisco" data-views="1742">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Nicole%20and%20Joshua.png?raw=true" 
-                             alt="Nicole and Joshua wedding film" class="wedding-image" loading="lazy">
+                             alt="Nicole and Joshua wedding film - Beach wedding with natural light cinematography" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.7K views</div>
                     </div>
@@ -1587,7 +1685,11 @@
                 <div class="wedding-card" data-video-id="GnI_U2WhA2A" data-title="Maricel & Ruben" data-description="San Francisco Bay Area | Tropical Destination | Cultural Celebration" data-category="leromovie san-francisco" data-views="1620">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Maricel%20and%20Ruben.png?raw=true" 
-                             alt="Maricel and Ruben wedding film" class="wedding-image" loading="lazy">
+                             alt="Maricel and Ruben wedding film - Tropical destination wedding with cultural celebration" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.6K views</div>
                     </div>
@@ -1601,7 +1703,11 @@
                 <div class="wedding-card" data-video-id="UmbO1ysY-jI" data-title="Merjen & Clark" data-description="San Francisco Bay Area | Dramatic Landscape | Epic Cinematography" data-category="leromovie san-francisco" data-views="1589">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Merjen%20and%20Сlark.png?raw=true" 
-                             alt="Merjen and Clark wedding film" class="wedding-image" loading="lazy">
+                             alt="Merjen and Clark wedding film - Dramatic landscape with epic cinematography" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.5K views</div>
                     </div>
@@ -1615,7 +1721,11 @@
                 <div class="wedding-card" data-video-id="ER0031j975c" data-title="Nuvia & Martin" data-description="San Francisco Bay Area | Urban Elegance | Modern Documentary" data-category="leromovie san-francisco" data-views="1432">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Nuvia%20and%20Martin%20film.png?raw=true" 
-                             alt="Nuvia & Martin wedding film" class="wedding-image" loading="lazy">
+                             alt="Nuvia & Martin wedding film - Urban elegance with modern documentary style" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.4K views</div>
                     </div>
@@ -1629,7 +1739,11 @@
                 <div class="wedding-card" data-video-id="YpCYjuYOd-4" data-title="Karys & Samuel" data-description="San Francisco Bay Area | Luxury Estate | Golden Hour" data-category="leromovie san-francisco" data-views="1367">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Karys%20and%20Samuel.png?raw=true" 
-                             alt="Karys and Samuel wedding film" class="wedding-image" loading="lazy">
+                             alt="Karys and Samuel wedding film - Luxury estate wedding during golden hour" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.3K views</div>
                     </div>
@@ -1643,7 +1757,11 @@
                 <div class="wedding-card" data-video-id="r28xtq6TRls" data-title="Alejandra & Daniel" data-description="San Francisco Bay Area | Gothic Quarter | Artistic Documentary" data-category="leromovie san-francisco" data-views="1298">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Alejandra%20and%20Daniel.png?raw=true" 
-                             alt="Alejandra & Daniel wedding film" class="wedding-image" loading="lazy">
+                             alt="Alejandra & Daniel wedding film - Gothic quarter wedding with artistic documentary style" 
+                             class="wedding-image" 
+                             loading="lazy"
+                             width="380" 
+                             height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                         <div class="video-views">1.2K views</div>
                     </div>
@@ -1775,7 +1893,11 @@
                 <div class="about-image">
                     <div class="image-frame">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/477319052_565477909856619_5447899648582230528_n.jpg?raw=true" 
-                             alt="Sam Krasilnikov - Director of Photography" class="about-portrait" loading="lazy">
+                             alt="Sam Krasilnikov - Director of Photography for luxury wedding cinematography" 
+                             class="about-portrait" 
+                             loading="lazy"
+                             width="500"
+                             height="667">
                         <div class="frame-decoration"></div>
                     </div>
                 </div>
@@ -1824,7 +1946,18 @@
                     To discuss capturing your celebration with this same intentional and artistic perspective, please reach out.
                 </p>
                 
-                <form class="inquiry-form" id="inquiry-form" netlify>
+                <form class="inquiry-form" id="inquiry-form" 
+                      name="wedding-inquiry" 
+                      method="POST" 
+                      data-netlify="true" 
+                      data-netlify-honeypot="bot-field">
+                    
+                    <!-- Скрытые поля для Netlify -->
+                    <input type="hidden" name="form-name" value="wedding-inquiry">
+                    <p style="display:none">
+                        <label>Don't fill this out: <input name="bot-field"></label>
+                    </p>
+                    
                     <div class="form-group">
                         <label class="form-label" for="names">Your Names *</label>
                         <input type="text" id="names" name="names" class="form-input" required placeholder="James & Allison">
@@ -1866,7 +1999,7 @@
         </section>
 
         <!-- Back to top -->
-        <button class="back-to-top" id="back-to-top">
+        <button class="back-to-top" id="back-to-top" aria-label="Back to top">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 19V5M5 12l7-7 7 7"/>
             </svg>
@@ -1895,7 +2028,7 @@
     <!-- Video Modal -->
     <div class="video-modal" id="video-modal">
         <div class="modal-content">
-            <button class="close-modal" id="close-modal">
+            <button class="close-modal" id="close-modal" aria-label="Close video modal">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
@@ -2043,6 +2176,8 @@
             videoCards.forEach(card => {
                 card.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
+                    
                     const videoId = this.dataset.videoId;
                     const title = this.dataset.title;
                     const description = this.dataset.description;
@@ -2154,9 +2289,45 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // ✅ Оптимизация
                 }
             });
         }, observerOptions);
+
+        // FAQ анимации
+        function initFAQAnimations() {
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const answer = item.querySelector('.faq-answer');
+                
+                item.addEventListener('toggle', function() {
+                    if (this.open && answer) {
+                        answer.style.animation = 'fadeIn 0.3s ease';
+                    }
+                });
+            });
+        }
+
+        // Загрузка изображений
+        function initImageLoading() {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            
+            images.forEach(img => {
+                const container = img.closest('.image-container');
+                if (container) {
+                    img.addEventListener('load', () => {
+                        container.classList.remove('loading');
+                    });
+                    
+                    img.addEventListener('error', () => {
+                        container.classList.remove('loading');
+                    });
+                    
+                    if (!img.complete) {
+                        container.classList.add('loading');
+                    }
+                }
+            });
+        }
 
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', () => {
@@ -2165,6 +2336,8 @@
             initTravelMap();
             initBackToTop();
             initVideoModal();
+            initFAQAnimations();
+            initImageLoading();
             
             // Наблюдать за элементами
             document.querySelectorAll('.wedding-card, .about-features').forEach(el => {
@@ -2174,12 +2347,15 @@
             // Плавная прокрутка
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
                     const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
+                    if (targetId === '#' || targetId === '#0') {
+                        e.preventDefault();
+                        return;
+                    }
                     
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
+                        e.preventDefault();
                         const headerHeight = document.querySelector('.main-header').offsetHeight;
                         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
                         const offsetPosition = targetPosition - headerHeight - 20;
@@ -2212,89 +2388,6 @@
                 }, 500);
             }
         });
-
-        // Переводы
-        const translations = {
-            en: {
-                "nav.logo": "SAM KRASILNIKOV",
-                "nav.portfolio": "Portfolio",
-                "nav.about": "About",
-                "nav.philosophy": "Philosophy",
-                "nav.contact": "Contact",
-                "nav.main": "Main Portfolio",
-                "nav.cta": "Inquire Now",
-                "hero.title.line1": "Timeless Wedding Films",
-                "hero.title.line2": "A Documentary Art",
-                "hero.subtitle": "Where authentic emotion meets cinematic elegance. Preserving the delicate, fleeting moments of your celebration as a work of art.",
-                "hero.cta": "Begin Your Story →",
-                "portfolio.title": "The Portfolio",
-                "portfolio.subtitle": "A curated collection of destination wedding narratives, each a testament to love's unique and enduring story.",
-                "portfolio.film": "LeroMovie Wedding Film",
-                "about.title": "The Artist Behind the Lens",
-                "about.subtitle": "International Director of Photography with a passion for authentic storytelling",
-                "about.text1": "With over 8 years of experience in luxury cinematography, I've had the honor of capturing some of the most intimate and beautiful celebrations across Europe, the United States, and Asia.",
-                "about.text2": "My approach is rooted in documentary authenticity—I believe the most powerful moments are the unscripted ones. Working discreetly and intuitively, I focus on capturing the genuine emotions, whispered promises, and spontaneous laughter that define your unique love story.",
-                "about.text3": "My work has been featured in collaborations with leading wedding production studios including RomaVera Films, Dreamwood, and LeroMovie. Each collaboration enriches my perspective and allows me to bring diverse cinematic approaches to every project.",
-                "about.specialties": "Specialties & Approach",
-                "about.feature1": "Cinematic Documentary Style",
-                "about.feature2": "Aerial Drone Cinematography",
-                "about.feature3": "4K & 6K RAW Workflow",
-                "about.feature4": "Color Grading & Film Emulation",
-                "about.feature5": "Multi-Camera Productions",
-                "about.feature6": "Available Worldwide",
-                "about.cta": "Discuss Your Vision",
-                "philosophy.title": "The Approach",
-                "philosophy.text": "True luxury lies in authenticity. My cinematography is an exercise in presence — an unobtrusive observation that captures the whispered promise, the unguarded laughter, the silent tear. The film becomes not just a record, but a sensory echo of the day itself.",
-                "contact.title": "Begin Your Story",
-                "contact.text": "To discuss capturing your celebration with this same intentional and artistic perspective, please reach out.",
-                "contact.form.names": "Your Names *",
-                "contact.form.email": "Email Address *",
-                "contact.form.date": "Wedding Date",
-                "contact.form.location": "Wedding Location",
-                "contact.form.message": "Your Message *",
-                "contact.form.submit": "Send Inquiry",
-                "contact.form.success": "Thank you for your inquiry! I'll get back to you within 24 hours.",
-                "contact.alternative": "Or reach out directly:",
-                "contact.email": "krasilniksem@gmail.com",
-                "contact.availability": "Available worldwide for destination weddings",
-                "footer.logo": "SAM KRASILNIKOV",
-                "footer.portfolio": "Portfolio",
-                "footer.about": "About",
-                "footer.philosophy": "Philosophy",
-                "footer.contact": "Contact",
-                "footer.main": "Main Portfolio",
-                "footer.copyright": "© ",
-                "travelmap.title": "Destination Weddings",
-                "travelmap.subtitle": "Available worldwide for destination weddings. Recent projects across California and international locations.",
-                "faq.title": "Frequently Asked Questions"
-            }
-        };
-
-        // Смена языка
-        const languageSelect = document.getElementById('language-select');
-        if (languageSelect) {
-            languageSelect.addEventListener('change', function(e) {
-                const lang = e.target.value;
-                localStorage.setItem('preferred-language', lang);
-                
-                document.querySelectorAll('[data-i18n]').forEach(element => {
-                    const key = element.getAttribute('data-i18n');
-                    if (translations[lang] && translations[lang][key]) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            element.placeholder = translations[lang][key];
-                        } else {
-                            element.textContent = translations[lang][key];
-                        }
-                    }
-                });
-                
-                document.documentElement.lang = lang;
-            });
-            
-            const savedLang = localStorage.getItem('preferred-language') || 'en';
-            languageSelect.value = savedLang;
-            document.documentElement.lang = savedLang;
-        }
     </script>
 </body>
 </html>
