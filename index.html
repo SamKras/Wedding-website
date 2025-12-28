@@ -726,19 +726,6 @@
             font-style: italic;
         }
 
-        /* Индикатор просмотров */
-        .video-views {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            backdrop-filter: blur(4px);
-        }
-
         /* Video Modal */
         .video-modal {
             position: fixed;
@@ -824,90 +811,60 @@
             margin: 0 auto;
         }
 
-        /* Travel Map Section */
-        .travel-map-section {
+        /* Destinations Section */
+        .destinations-section {
             padding: 5rem 2rem;
             background: linear-gradient(to bottom, var(--color-cream) 0%, var(--color-ivory) 100%);
         }
-        .travel-map-container {
+        .destinations-container {
             max-width: 1000px;
             margin: 3rem auto 0;
+        }
+        .destinations-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-        }
-        @media (min-width: 900px) {
-            .travel-map-container {
-                grid-template-columns: 2fr 1fr;
-                align-items: start;
-            }
-        }
-        .travel-map {
-            position: relative;
-            background: var(--color-ivory);
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(197, 164, 126, 0.2);
-            overflow: hidden;
-        }
-        .world-map {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .world {
-            fill: var(--color-beige);
-            stroke: var(--color-sand);
-            stroke-width: 1;
-        }
-        .map-marker {
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .map-marker:hover { transform: scale(1.1); }
-        .map-marker text {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        .map-marker:hover text { opacity: 1; }
-
-        .destinations-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
         }
         .destination-card {
             background: var(--color-cream);
-            padding: 1.5rem;
-            border-radius: 6px;
-            border-left: 3px solid var(--color-gold);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(197, 164, 126, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
         }
         .destination-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(168, 143, 116, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(168, 143, 116, 0.1);
+            border-color: var(--color-gold);
+        }
+        .destination-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-gold);
         }
         .destination-card h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 0.5rem;
             color: var(--color-charcoal);
         }
         .destination-card p {
             color: var(--color-text-light);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
         }
         .destination-tag {
             display: inline-block;
             background: rgba(197, 164, 126, 0.1);
             color: var(--color-gold-dark);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
             letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
         /* FAQ Section */
@@ -1465,6 +1422,11 @@
                 align-items: center;
                 justify-content: center;
             }
+            
+            .destinations-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
         }
         @media (max-width: 480px) {
             .hero-title { font-size: 2rem; }
@@ -1473,8 +1435,8 @@
             .footer-nav { gap: 1.5rem; }
             .language-selector select { min-width: 120px; }
             .about-features ul { grid-template-columns: 1fr; }
-            .travel-map { padding: 1rem; }
-            .destination-card { padding: 1rem; }
+            .destinations-grid { grid-template-columns: 1fr; }
+            .destination-card { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -1592,7 +1554,7 @@
             
             <div class="portfolio-grid">
                 <!-- Card 1: Dina & Shein -->
-                <div class="wedding-card visible" data-video-id="j-i90sZ-PhM" data-title="Dina & Shein" data-description="Los Angeles, CA | Luxury Desert Wedding | Cinematic Storytelling" data-category="personal los-angeles" data-views="1542">
+                <div class="wedding-card visible" data-video-id="j-i90sZ-PhM" data-title="Dina & Shein" data-description="Los Angeles, CA | Luxury Desert Wedding | Cinematic Storytelling" data-category="personal los-angeles">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Dina%20and%20Shein.png?raw=true" 
                              alt="Luxury desert wedding cinematography - Dina & Shein wedding film in Los Angeles" 
@@ -1601,7 +1563,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.5K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Dina & Shein</h3>
@@ -1610,7 +1571,7 @@
                 </div>
 
                 <!-- Card 2: Shanice & Danielle -->
-                <div class="wedding-card" data-video-id="J1Q5qOC_8gg" data-title="Shanice & Danielle" data-description="San Francisco Bay Area | Modern Love | Urban Documentary" data-category="leromovie san-francisco" data-views="1287">
+                <div class="wedding-card" data-video-id="J1Q5qOC_8gg" data-title="Shanice & Danielle" data-description="San Francisco Bay Area | Modern Love | Urban Documentary" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Shanice%20and%20Danielle.png?raw=true" 
                              alt="Shanice and Danielle wedding film - Modern love story in San Francisco Bay Area" 
@@ -1619,7 +1580,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.2K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Shanice & Danielle</h3>
@@ -1628,7 +1588,7 @@
                 </div>
 
                 <!-- Card 3: James & Allison -->
-                <div class="wedding-card" data-video-id="CxL7ODtDAz4" data-title="James & Allison" data-description="San Francisco Bay Area | Cinematic Documentary | Drone Aerials" data-category="leromovie san-francisco" data-views="2310">
+                <div class="wedding-card" data-video-id="CxL7ODtDAz4" data-title="James & Allison" data-description="San Francisco Bay Area | Cinematic Documentary | Drone Aerials" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/James%20and%20Allison.png?raw=true" 
                              alt="James & Allison wedding film - Cinematic documentary with drone aerials in San Francisco" 
@@ -1637,7 +1597,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">2.3K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">James & Allison</h3>
@@ -1646,7 +1605,7 @@
                 </div>
 
                 <!-- Card 4: Giavanna & Landon -->
-                <div class="wedding-card" data-video-id="rizc_ROs7vY" data-title="Giavanna & Landon" data-description="San Francisco Bay Area | Golden Hour Cinematography | Emotional Storytelling" data-category="leromovie san-francisco" data-views="1895">
+                <div class="wedding-card" data-video-id="rizc_ROs7vY" data-title="Giavanna & Landon" data-description="San Francisco Bay Area | Golden Hour Cinematography | Emotional Storytelling" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Giavanna%20and%20Landon.png?raw=true" 
                              alt="Giavanna & Landon wedding film - Golden hour cinematography with emotional storytelling" 
@@ -1655,7 +1614,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.8K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Giavanna & Landon</h3>
@@ -1664,7 +1622,7 @@
                 </div>
 
                 <!-- Card 5: Nicole & Joshua -->
-                <div class="wedding-card" data-video-id="dx7ZeAc2_l8" data-title="Nicole & Joshua" data-description="San Francisco Bay Area | Beach Wedding | Natural Light Cinematography" data-category="leromovie san-francisco" data-views="1742">
+                <div class="wedding-card" data-video-id="dx7ZeAc2_l8" data-title="Nicole & Joshua" data-description="San Francisco Bay Area | Beach Wedding | Natural Light Cinematography" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Nicole%20and%20Joshua.png?raw=true" 
                              alt="Nicole and Joshua wedding film - Beach wedding with natural light cinematography" 
@@ -1673,7 +1631,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.7K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Nicole & Joshua</h3>
@@ -1682,7 +1639,7 @@
                 </div>
 
                 <!-- Card 6: Maricel & Ruben -->
-                <div class="wedding-card" data-video-id="GnI_U2WhA2A" data-title="Maricel & Ruben" data-description="San Francisco Bay Area | Tropical Destination | Cultural Celebration" data-category="leromovie san-francisco" data-views="1620">
+                <div class="wedding-card" data-video-id="GnI_U2WhA2A" data-title="Maricel & Ruben" data-description="San Francisco Bay Area | Tropical Destination | Cultural Celebration" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Maricel%20and%20Ruben.png?raw=true" 
                              alt="Maricel and Ruben wedding film - Tropical destination wedding with cultural celebration" 
@@ -1691,7 +1648,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.6K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Maricel & Ruben</h3>
@@ -1700,7 +1656,7 @@
                 </div>
 
                 <!-- Card 7: Merjen & Clark -->
-                <div class="wedding-card" data-video-id="UmbO1ysY-jI" data-title="Merjen & Clark" data-description="San Francisco Bay Area | Dramatic Landscape | Epic Cinematography" data-category="leromovie san-francisco" data-views="1589">
+                <div class="wedding-card" data-video-id="UmbO1ysY-jI" data-title="Merjen & Clark" data-description="San Francisco Bay Area | Dramatic Landscape | Epic Cinematography" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Merjen%20and%20Сlark.png?raw=true" 
                              alt="Merjen and Clark wedding film - Dramatic landscape with epic cinematography" 
@@ -1709,7 +1665,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.5K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Merjen & Clark</h3>
@@ -1718,7 +1673,7 @@
                 </div>
 
                 <!-- Card 8: Nuvia & Martin -->
-                <div class="wedding-card" data-video-id="ER0031j975c" data-title="Nuvia & Martin" data-description="San Francisco Bay Area | Urban Elegance | Modern Documentary" data-category="leromovie san-francisco" data-views="1432">
+                <div class="wedding-card" data-video-id="ER0031j975c" data-title="Nuvia & Martin" data-description="San Francisco Bay Area | Urban Elegance | Modern Documentary" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Nuvia%20and%20Martin%20film.png?raw=true" 
                              alt="Nuvia & Martin wedding film - Urban elegance with modern documentary style" 
@@ -1727,7 +1682,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.4K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Nuvia & Martin</h3>
@@ -1736,7 +1690,7 @@
                 </div>
 
                 <!-- Card 9: Karys & Samuel -->
-                <div class="wedding-card" data-video-id="YpCYjuYOd-4" data-title="Karys & Samuel" data-description="San Francisco Bay Area | Luxury Estate | Golden Hour" data-category="leromovie san-francisco" data-views="1367">
+                <div class="wedding-card" data-video-id="YpCYjuYOd-4" data-title="Karys & Samuel" data-description="San Francisco Bay Area | Luxury Estate | Golden Hour" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Karys%20and%20Samuel.png?raw=true" 
                              alt="Karys and Samuel wedding film - Luxury estate wedding during golden hour" 
@@ -1745,7 +1699,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.3K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Karys & Samuel</h3>
@@ -1754,7 +1707,7 @@
                 </div>
 
                 <!-- Card 10: Alejandra & Daniel -->
-                <div class="wedding-card" data-video-id="r28xtq6TRls" data-title="Alejandra & Daniel" data-description="San Francisco Bay Area | Gothic Quarter | Artistic Documentary" data-category="leromovie san-francisco" data-views="1298">
+                <div class="wedding-card" data-video-id="r28xtq6TRls" data-title="Alejandra & Daniel" data-description="San Francisco Bay Area | Gothic Quarter | Artistic Documentary" data-category="leromovie san-francisco">
                     <div class="image-container">
                         <img src="https://github.com/SamKras/Wedding-website/blob/main/Alejandra%20and%20Daniel.png?raw=true" 
                              alt="Alejandra & Daniel wedding film - Gothic quarter wedding with artistic documentary style" 
@@ -1763,7 +1716,6 @@
                              width="380" 
                              height="280">
                         <div class="video-play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                        <div class="video-views">1.2K views</div>
                     </div>
                     <div class="card-content">
                         <h3 class="wedding-title">Alejandra & Daniel</h3>
@@ -1773,8 +1725,8 @@
             </div>
         </section>
 
-        <!-- Travel Map -->
-        <section class="travel-map-section">
+        <!-- Destinations -->
+        <section class="destinations-section">
             <div class="section-header">
                 <h2 class="section-title">Destination Weddings</h2>
                 <div class="section-line"></div>
@@ -1783,50 +1735,31 @@
                 </p>
             </div>
             
-            <div class="travel-map-container">
-                <div class="travel-map">
-                    <svg viewBox="0 0 800 400" class="world-map">
-                        <!-- Упрощенная карта мира -->
-                        <path class="world" d="M100,100 C150,80 200,90 250,100 C300,110 350,120 400,110 C450,100 500,90 550,100 C600,110 650,130 700,120 L700,300 L100,300 Z" 
-                              fill="#e8dfd8" stroke="#d7ccc2" stroke-width="2"/>
-                        
-                        <!-- Маркеры -->
-                        <g class="map-marker" data-location="san-francisco" style="transform: translate(150px, 180px);">
-                            <circle cx="0" cy="0" r="8" fill="#c5a47e" stroke="white" stroke-width="2">
-                                <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite"/>
-                            </circle>
-                            <text x="0" y="-15" text-anchor="middle" fill="#4a4a4a" font-size="12" font-family="Arial">San Francisco</text>
-                        </g>
-                        <g class="map-marker" data-location="los-angeles" style="transform: translate(140px, 200px);">
-                            <circle cx="0" cy="0" r="8" fill="#c5a47e" stroke="white" stroke-width="2">
-                                <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" begin="0.5s"/>
-                            </circle>
-                            <text x="0" y="-15" text-anchor="middle" fill="#4a4a4a" font-size="12" font-family="Arial">Los Angeles</text>
-                        </g>
-                        <g class="map-marker" data-location="europe" style="transform: translate(400px, 180px);">
-                            <circle cx="0" cy="0" r="6" fill="#a8845b" stroke="white" stroke-width="2"/>
-                            <text x="0" y="-12" text-anchor="middle" fill="#4a4a4a" font-size="10" font-family="Arial">Europe</text>
-                        </g>
-                    </svg>
-                </div>
-                
-                <div class="destinations-list">
-                    <div class="destination-card" data-location="san-francisco">
+            <div class="destinations-container">
+                <div class="destinations-grid">
+                    <div class="destination-card">
+                        <div class="destination-icon">📍</div>
                         <h4>San Francisco Bay Area</h4>
-                        <p>9+ wedding films</p>
+                        <p>9+ wedding films capturing the unique beauty of Northern California</p>
                         <span class="destination-tag">Most Popular</span>
                     </div>
-                    <div class="destination-card" data-location="los-angeles">
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon">☀️</div>
                         <h4>Los Angeles, CA</h4>
-                        <p>Luxury desert weddings</p>
+                        <p>Luxury desert weddings and coastal celebrations in Southern California</p>
                     </div>
-                    <div class="destination-card" data-location="europe">
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon">✈️</div>
                         <h4>European Destinations</h4>
-                        <p>Italy, Spain, France, UK</p>
+                        <p>Italy, Spain, France, UK - preserving timeless European wedding traditions</p>
                     </div>
-                    <div class="destination-card" data-location="international">
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon">🌎</div>
                         <h4>Worldwide</h4>
-                        <p>Available for travel</p>
+                        <p>Available for travel to capture your destination wedding anywhere in the world</p>
                         <span class="destination-tag">Destination Specialist</span>
                     </div>
                 </div>
@@ -2090,36 +2023,6 @@
             });
         }
 
-        // Карта путешествий
-        function initTravelMap() {
-            const mapMarkers = document.querySelectorAll('.map-marker');
-            const destinationCards = document.querySelectorAll('.destination-card');
-            
-            function highlightDestination(location) {
-                mapMarkers.forEach(marker => marker.style.opacity = '0.6');
-                destinationCards.forEach(card => card.style.transform = 'scale(1)');
-                
-                const selectedMarker = document.querySelector(`.map-marker[data-location="${location}"]`);
-                const selectedCard = document.querySelector(`.destination-card[data-location="${location}"]`);
-                
-                if (selectedMarker) {
-                    selectedMarker.style.opacity = '1';
-                    selectedMarker.style.transform = 'scale(1.2)';
-                }
-                if (selectedCard) selectedCard.style.transform = 'scale(1.05)';
-            }
-            
-            mapMarkers.forEach(marker => {
-                marker.addEventListener('click', () => highlightDestination(marker.dataset.location));
-                marker.addEventListener('mouseenter', () => highlightDestination(marker.dataset.location));
-            });
-            
-            destinationCards.forEach(card => {
-                card.addEventListener('click', () => highlightDestination(card.dataset.location));
-                card.addEventListener('mouseenter', () => highlightDestination(card.dataset.location));
-            });
-        }
-
         // Кнопка "Back to top"
         function initBackToTop() {
             const backToTopBtn = document.getElementById('back-to-top');
@@ -2333,7 +2236,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             initProgressBar();
             initPortfolioFilters();
-            initTravelMap();
             initBackToTop();
             initVideoModal();
             initFAQAnimations();
